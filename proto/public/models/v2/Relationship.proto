@@ -1,0 +1,17 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "google/protobuf/timestamp.proto";
+import "public/models/v2/GraphType.proto";
+import "public/models/v2/CacheControl.proto";
+
+message Relationship {
+  GraphType graphType = 1;
+  string sourceId = 2;
+  string targetId = 3;
+  bool isInverse = 4;
+  optional google.protobuf.Timestamp createdAt = 5;
+  CacheControl cacheControl = 6;
+  optional int32 mutualFriendsCount = 7;
+  repeated string mutualFriendIds = 8;
+}
