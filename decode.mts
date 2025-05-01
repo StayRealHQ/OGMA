@@ -66,15 +66,20 @@ if (!proto) {
   });
 }
 else {
-  let [protocolMessageName] = proto.split("/")
-    // retrieve the last part of the path.
-    .at(-1)!
-    // remove the .proto extension.
-    .split(".");
+  let path = proto.replace(/\.proto$/, "");
+
+  if (path.startsWith("./")) {
+    path = path.slice(2);
+  }
+
+  const paths = path.split("/");
+  paths.shift();
+
+  const protocolMessageName = paths.join(".");
 
   spawnSync("protoc", [
     "--proto_path=proto", // use the proto directory as the proto path.
-    "--decode=public.entity.v2." + protocolMessageName,
+    `--decode=${protocolMessageName}`,
     proto
   ], {
     input: message,
