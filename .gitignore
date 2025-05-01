@@ -1,3 +1,4 @@
 node_modules/
 *.chlz
+*.desc
 bins/
