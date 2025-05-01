@@ -1,0 +1,10 @@
+syntax = "proto3";
+package public.models.v2;
+
+enum GraphType {
+  GRAPH_TYPE_UNSPECIFIED = 0;
+  GRAPH_TYPE_FOLLOW = 1;
+  GRAPH_TYPE_BLOCK = 2;
+  GRAPH_TYPE_FRIENDS = 13;
+  GRAPH_TYPE_FRIEND_REQUESTS = 16;
+}
