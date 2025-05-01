@@ -53,6 +53,11 @@ if (!message) {
   process.exit(2);
 }
 
+if (message.length === 0) {
+  console.info('empty message, use google.protobuf.Empty');
+  process.exit(0);
+}
+
 const proto = process.argv[3];
 if (!proto) {
   spawnSync("decode_raw", {
