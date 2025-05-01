@@ -1,0 +1,12 @@
+syntax = "proto3";
+package public.activity.v2;
+
+import "google/protobuf/Duration.proto";
+import "public/activity/v2/Activity.proto";
+
+message GetActivityFeedResponse {
+  // optional Cursor cursor = 1;
+  repeated Activity activities = 2;
+  // optional Entities entities = 3;
+  google.protobuf.Duration coolDown = 4;
+}

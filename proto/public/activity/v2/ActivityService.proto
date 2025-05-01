@@ -1,0 +1,9 @@
+syntax = "proto3";
+package public.activity.v2;
+
+import "google/protobuf/Empty.proto";
+import "public/activity/v2/GetActivityFeedResponse.proto";
+
+service ActivityService {
+  rpc GetActivityFeed (google.protobuf.Empty) returns (GetActivityFeedResponse);
+}
