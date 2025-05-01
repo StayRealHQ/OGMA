@@ -1,0 +1,6 @@
+syntax = "proto3";
+package public.activity.v2;
+
+message MarkActivitiesAsSeenRequest {
+  string id = 2;
+}
