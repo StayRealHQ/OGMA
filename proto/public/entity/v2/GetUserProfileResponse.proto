@@ -1,0 +1,12 @@
+syntax = "proto3";
+package public.entity.v2;
+
+import "public/models/v2/User.proto";
+import "public/models/v2/UserCounter.proto";
+import "public/models/v2/CommonFriends.proto";
+
+message GetUserProfileResponse {
+  public.models.v2.User user = 1;
+  public.models.v2.UserCounter counter = 2;
+  optional public.models.v2.CommonFriends commonFriends = 4;
+}

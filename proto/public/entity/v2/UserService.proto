@@ -1,0 +1,9 @@
+syntax = "proto3";
+package public.entity.v2;
+
+import "public/entity/v2/GetUserProfileRequest.proto";
+import "public/entity/v2/GetUserProfileResponse.proto";
+
+service UserService {
+  rpc GetUserProfile (public.entity.v2.GetUserProfileRequest) returns (public.entity.v2.GetUserProfileResponse);
+}

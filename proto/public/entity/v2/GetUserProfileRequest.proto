@@ -1,0 +1,6 @@
+syntax = "proto3";
+package public.entity.v2;
+
+message GetUserProfileRequest {
+  string id = 1;
+}
