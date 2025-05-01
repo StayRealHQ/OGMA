@@ -1,11 +1,11 @@
 syntax = "proto3";
 package public.activity.v2;
 
-import "google/protobuf/Empty.proto";
+import "google/protobuf/empty.proto";
 import "public/activity/v2/GetActivityFeedResponse.proto";
 import "public/activity/v2/MarkActivitiesAsSeenRequest.proto";
 
 service ActivityService {
-  rpc GetActivityFeed (google.protobuf.Empty) returns (GetActivityFeedResponse);
-  rpc MarkActivitiesAsSeen (MarkActivitiesAsSeenRequest) returns (google.protobuf.Empty);
+  rpc GetActivityFeed (google.protobuf.Empty) returns (GetActivityFeedResponse) {}
+  rpc MarkActivitiesAsSeen (MarkActivitiesAsSeenRequest) returns (google.protobuf.Empty) {}
 }
