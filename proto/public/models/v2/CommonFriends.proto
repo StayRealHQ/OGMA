@@ -4,6 +4,6 @@ package public.models.v2;
 import "public/models/v2/User.proto";
 
 message CommonFriends {
-  repeated public.models.v2.User users = 1;
+  repeated User users = 1;
   int32 total = 2;
 }
