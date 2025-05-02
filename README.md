@@ -6,7 +6,8 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 
 ```bash
 protoc --proto_path=proto --descriptor_set_out=ogma.desc \
-  proto/public/**/*.proto
+  proto/public/**/*.proto \
+  proto/common/**/*.proto
 ```
 
 You'll be able to use the `ogma.desc` file with any tool that supports it.
