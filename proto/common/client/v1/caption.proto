@@ -1,0 +1,6 @@
+syntax = "proto3";
+package common.client.v1;
+
+message Caption {
+  string caption = 1;
+}

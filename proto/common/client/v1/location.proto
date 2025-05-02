@@ -1,0 +1,7 @@
+syntax = "proto3";
+package common.client.v1;
+
+message Location {
+  float lat = 1;
+  float lon = 2;
+}
