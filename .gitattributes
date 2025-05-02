@@ -1,0 +1,2 @@
+*.proto linguist-detectable=true
+*.mts linguist-vendored
