@@ -1,0 +1,11 @@
+syntax = "proto3";
+package public.models.v2;
+
+enum Region {
+  REGION_UNSPECIFIED = 0;
+  REGION_US_CENTRAL = 1;
+  REGION_EUROPE_WEST = 2;
+  REGION_ASIA_WEST = 3;
+  REGION_ASIA_EAST = 4;
+  REGION_DEV1 = 5;
+}
