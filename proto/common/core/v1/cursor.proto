@@ -1,0 +1,11 @@
+syntax = "proto3";
+package common.core.v1;
+
+import "opaque.proto";
+
+message Cursor {
+  oneof cursor {
+    Opaque above = 1;
+    Opaque below = 2;
+  }
+}

@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message Opaque {
+  bytes opaque = 1;
+}
