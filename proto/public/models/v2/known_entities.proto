@@ -1,0 +1,7 @@
+syntax = "proto3";
+package public.models.v2;
+
+message KnownEntities {
+  repeated string user_ids = 1;
+  repeated string posts_ids = 2;
+}
