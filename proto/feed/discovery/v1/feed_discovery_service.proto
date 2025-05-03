@@ -16,5 +16,7 @@ message GetPublicPostsResponse {
 }
 
 service FeedDiscoveryService {
+  // TODO: rpc FeedInteraction() returns () {}
   rpc GetPublicPosts(GetPublicPostsRequest) returns (GetPublicPostsResponse) {}
+  // TODO: rpc PostSeen() returns (google.protobuf.Empty) {}
 }
