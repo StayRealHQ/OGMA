@@ -1,0 +1,6 @@
+syntax = "proto3";
+package common.core.v1;
+
+message UserId {
+  string id = 1;
+}
