@@ -1,0 +1,20 @@
+syntax = "proto3";
+package feed.discovery.v1;
+
+import "entity/post/v1/post.proto";
+import "entity/user/v1/user.proto";
+
+message GetPublicPostsRequest {
+  string user_id = 1;
+  optional string cursor = 2;
+}
+
+message GetPublicPostsResponse {
+  repeated entity.post.v1.Post posts = 1;
+  string next_cursor = 2;
+  repeated entity.user.v1.User users = 3;
+}
+
+service FeedDiscoveryService {
+  rpc GetPublicPosts(GetPublicPostsRequest) returns (GetPublicPostsResponse) {}
+}
