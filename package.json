@@ -1,5 +1,8 @@
 {
 	"devDependencies": {
 		"@types/bun": "^1.2.11"
+	},
+	"dependencies": {
+		"change-case": "^5.4.4"
 	}
 }

@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { readFile } from 'node:fs/promises';
 import { gunzip } from 'node:zlib';
+import { snakeCase } from "change-case";
 
 /**
  * Decodes a raw gRPC request or response from the `./bins/` directory.
@@ -43,11 +44,12 @@ async function decode (filePath: string): Promise<Buffer | undefined> {
 
 const file = process.argv[2];
 if (!file) {
-  console.error('usage: bun decode.mts <raw_message> [<proto_file_to_use>]');
+  console.error('usage: bun decode.mts <raw_bin> [<service>/<call>]');
   process.exit(1);
 }
 
 const message = await decode(file);
+
 if (!message) {
   console.error('incomplete request body');
   process.exit(2);
@@ -58,27 +60,27 @@ if (message.length === 0) {
   process.exit(0);
 }
 
-const proto = process.argv[3];
-if (!proto) {
+// eg.: search.frontend.v1.SearchService/SearchUsersRequest
+const call = process.argv[3];
+
+if (!call) {
   spawnSync("decode_raw", {
     input: message,
     stdio: "inherit"
   });
 }
 else {
-  let path = proto.replace(/\.proto$/, "");
+  const [service, rootMessageName] = call.split("/");
 
-  if (path.startsWith("./")) {
-    path = path.slice(2);
-  }
+  const path = service.split(".");
+  path[path.length - 1] = snakeCase(path[path.length - 1]);
+  const proto = path.join("/") + ".proto";
 
-  const paths = path.split("/");
-  paths.shift();
-
-  const protocolMessageName = paths.join(".");
+  path.pop();
+  const protocolMessageName = path.join(".") + "." + rootMessageName;
 
   spawnSync("protoc", [
-    "--proto_path=proto", // use the proto directory as the proto path.
+    "--proto_path=proto",
     `--decode=${protocolMessageName}`,
     proto
   ], {

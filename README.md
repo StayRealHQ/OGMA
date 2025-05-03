@@ -26,13 +26,13 @@ Once done, you can install the dependencies using `bun install`.
 
 You first need a raw request or response from the service and you should put it in the `bins/` directory (`mkdir bins` if none exists).
 
-If the entity you want to decode is already in the `proto/` directory, you can decode it using the following command.
+If the message you want to decode is already in the `proto/` directory, you can decode it using the following command.
 
 ```bash
-bun decode.mts bins/GetUserProfileResponse.bin proto/public/entity/v2/GetUserProfileResponse.proto
+bun decode.mts bins/SearchUsersResponse.bin search.frontend.v1.SearchService/SearchUsersResponse
 ```
 
-However, if you're willing to contribute and your entity is not in the `proto/` directory, you can raw decode it using the following command.
+However, if you're willing to contribute and your message is not in the `proto/` directory, you can raw decode it using the following command.
 
 ```bash
 bun decode.mts bins/UnknownMessageResponse.bin
