@@ -1,0 +1,15 @@
+syntax = "proto3";
+package entity.user.v1;
+
+import "common/core/v1/user_id.proto";
+import "common/client/v1/user_type.proto";
+import "common/core/v1/media_reference.proto";
+
+message User {
+  common.core.v1.UserId id = 1;
+  common.client.v1.UserType type = 2;
+  string username = 3;
+  string fullname = 4;
+  common.core.v1.MediaReference profile_picture = 5;
+  optional bool is_verified = 6;
+}
