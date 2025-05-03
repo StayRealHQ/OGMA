@@ -1,0 +1,15 @@
+syntax = "proto3";
+package common.core.v1;
+
+message MediaReference {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_IMAGE = 1;
+    TYPE_VIDEO = 2;
+  }
+
+  string url = 1;
+  int32 width = 2;
+  int32 height = 3;
+  Type type = 4;
+}
