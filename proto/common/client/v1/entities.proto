@@ -1,0 +1,14 @@
+syntax = "proto3";
+package common.client.v1;
+
+import "entity/user/v1/user.proto";
+import "entity/post/v1/post.proto";
+import "common/client/v1/moment.proto";
+import "entity/event/v1/event.proto";
+
+message Entities {
+  repeated entity.user.v1.User users = 1;
+  repeated entity.post.v1.Post posts = 2;
+  repeated common.client.v1.Moment moments = 3;
+  repeated entity.event.v1.Event events = 4;
+}
