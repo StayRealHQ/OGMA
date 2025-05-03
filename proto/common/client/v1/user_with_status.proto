@@ -1,0 +1,9 @@
+syntax = "proto3";
+package common.client.v1;
+
+import "entity/user/v1/user.proto";
+
+message UserWithStatus {
+  entity.user.v1.User user = 1;
+  int32 status = 2;
+}
