@@ -1,0 +1,13 @@
+syntax = "proto3";
+package common.client.v1;
+
+import "google/protobuf/timestamp.proto";
+import "common/core/v1/id.proto";
+
+message Moment {
+  common.core.v1.Id id = 1;
+  string region = 2;
+  google.protobuf.Timestamp start_at = 3;
+  google.protobuf.Timestamp end_at = 4;
+  bool is_current = 5;
+}
