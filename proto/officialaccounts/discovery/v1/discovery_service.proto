@@ -1,0 +1,24 @@
+syntax = "proto3";
+package officialaccounts.discovery.v1;
+
+import "entity/user/v1/user.proto";
+import "opaque.proto";
+
+message GetRecommendationsRequest {
+  int32 limit = 1;
+
+  oneof cursor {
+    Opaque above_top_cursor = 2;
+    Opaque below_bottom_cursor = 3;
+  }
+}
+
+message GetRecommendationsResponse {
+  repeated entity.user.v1.User recommendations = 1;
+  Opaque top_cursor = 2;
+  Opaque bottom_cursor = 3;
+}
+
+service DiscoveryService {
+  rpc GetRecommendations(GetRecommendationsRequest) returns (GetRecommendationsResponse) {}
+}
