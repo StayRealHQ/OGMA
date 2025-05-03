@@ -1,0 +1,34 @@
+syntax = "proto3";
+package search.frontend.v1;
+
+import "common/client/v1/user_with_status.proto";
+import "common/client/v1/entities.proto";
+import "common/core/v1/page_cursor.proto";
+import "common/core/v1/cursor.proto";
+
+message SearchUsersRequest {
+  string query = 1;
+  int32 limit = 2;
+  bool exclude_verified = 3;
+  bool exclude_unverified = 4;
+}
+
+message SearchUsersResponse {
+  repeated common.client.v1.UserWithStatus users = 1;
+}
+
+message OASearchRequest {
+  string query = 1;
+  optional common.core.v1.Cursor cursor = 2;
+  int32 limit = 3;
+}
+
+message OASearchResponse {
+  optional common.client.v1.Entities entities = 1;
+  optional common.core.v1.PageCursor cursor = 2;
+}
+
+service SearchService {
+  rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse) {}
+  rpc OASearch(OASearchRequest) returns (OASearchResponse) {}
+}
