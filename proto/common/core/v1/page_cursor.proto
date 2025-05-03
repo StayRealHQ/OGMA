@@ -1,0 +1,9 @@
+syntax = "proto3";
+package common.core.v1;
+
+import "opaque.proto";
+
+message PageCursor {
+  optional Opaque top = 1;
+  optional Opaque bottom = 2;
+}
