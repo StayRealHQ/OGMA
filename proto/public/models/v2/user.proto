@@ -1,20 +1,23 @@
 syntax = "proto3";
 package public.models.v2;
 
-import "public/models/v2/UserType.proto";
-import "public/models/v2/Media.proto";
-import "public/models/v2/CacheControl.proto";
+import "public/models/v2/cache_control.proto";
+import "public/models/v2/profile_link.proto";
+import "public/models/v2/user_type.proto";
+import "public/models/v2/media.proto";
 
 message User {
   string id = 1;
-  UserType type = 2;
+  public.models.v2.UserType type = 2;
   string username = 3;
-  string fullName = 4;
-  Media profilePicture = 5;
-  CacheControl cacheControl = 6;
+  string fullname = 4;
+  optional public.models.v2.Media profile_picture = 5;
+  optional public.models.v2.CacheControl cache_control = 6;
   int32 region = 7;
-  optional string biography = 8;
+  string biography = 8;
   string location = 9;
-  int32 age = 11;
-  string hashedPhoneNumber = 14;
+  bool is_verified = 10;
+  optional int32 age = 11;
+  repeated public.models.v2.ProfileLink links = 12;
+  optional int64 streak_length = 13;
 }
