@@ -1,0 +1,14 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "public/models/v2/user.proto";
+import "public/models/v2/post.proto";
+import "public/models/v2/moment.proto";
+import "public/models/v2/story.proto";
+
+message Entities {
+  repeated public.models.v2.User users = 1;
+  repeated public.models.v2.Post posts = 2;
+  repeated public.models.v2.Moment moments = 3;
+  repeated public.models.v2.Story stories = 4;
+}
