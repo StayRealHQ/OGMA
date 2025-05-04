@@ -1,0 +1,25 @@
+name: sync to codeberg
+
+concurrency:
+  group: ${{ github.ref }}-codeberg
+  cancel-in-progress: true
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */12 * * *"
+
+jobs:
+  codeberg:
+    if: github.repository == 'StayRealHQ/OGMA'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: Ximaz/repository-mirroring-action@main
+        with:
+          target_repo_url: "git@codeberg.org:StayRealHQ/OGMA.git"
+          ssh_private_key: ${{ secrets.CODEBERG_SSH_PRIVATE_KEY }}
+          ssh_private_key_passphrase: ${{ secrets.CODEBERG_SSH_PASSPHRASE }}
