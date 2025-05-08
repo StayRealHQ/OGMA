@@ -1,0 +1,9 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "public/models/v2/media.proto";
+
+message Thumbnails {
+  public.models.v2.Media primary = 1;
+  public.models.v2.Media secondary = 2;
+}
