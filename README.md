@@ -4,8 +4,8 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 
 ## Roadmap
 
-- [ ] `public.activity.v2.ActivityService/GetActivityFeed`
-- [ ] `public.activity.v2.ActivityService/MarkActivitiesAsSeen`
+- [x] `public.activity.v2.ActivityService/GetActivityFeed`
+- [x] `public.activity.v2.ActivityService/MarkActivitiesAsSeen`
 - [ ] `public.entity.v2.UserService/GetUserProfile`
 - [x] `public.home.v2.StateService/GetMyState`
 - [ ] `public.memories.v2.MemoriesService/GetMemoriesFeed`
