@@ -1,0 +1,34 @@
+syntax = "proto3";
+package public.models.v2;
+
+message Music {
+  enum Provider { // public.models.v2.Music__Provider
+    PROVIDER_UNSPECIFIED = 0;
+    PROVIDER_SPOTIFY = 1;
+    PROVIDER_APPLE = 2;
+    PROVIDER_AMAZON = 3;
+  }
+
+  enum Visibility { // public.models.v2.Music__Visibility
+    VISIBILITY_UNSPECIFIED = 0;
+    VISIBILITY_PUBLIC = 1;
+    VISIBILITY_PRIVATE = 2;
+  }
+
+  enum AudioType { // public.models.v2.Music__AudioType
+    AUDIO_TYPE_UNSPECIFIED = 0;
+    AUDIO_TYPE_PODCAST = 1;
+    AUDIO_TYPE_TRACK = 2;
+  }
+
+  string isrc = 1;
+  string track = 2;
+  string artist = 3;
+  string artwork = 4;
+  string preview = 5;
+  string open_url = 6;
+  Visibility visibility = 7;
+  Provider provider = 8;
+  string provider_id = 9;
+  AudioType audio_type = 10;
+}
