@@ -38,7 +38,7 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `public.entity.v2.PostService/DeletePostRealmoji` (unavailable)
 - [ ] `public.entity.v2.PostService/CreatePostRealmoji` (unavailable)
 - [ ] `public.entity.v2.PostService/CreatePostComment` (unavailable)
-- [ ] `public.entity.v2.PostService/SetPostsAsPublic`
+- [x] `public.entity.v2.PostService/SetPostsAsPublic`
 - [ ] `public.entity.v2.PostService/CreatePostLike`
 - [ ] `public.entity.v2.PostService/DeletePostLike`
 - [ ] `public.entity.v2.PostService/CreateCommentReaction` (unavailable)

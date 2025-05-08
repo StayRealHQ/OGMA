@@ -1,6 +1,7 @@
 syntax = "proto3";
 package public.entity.v2;
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 import "public/models/v2/known_entities.proto";
 import "public/models/v2/page_metadata.proto";
@@ -23,6 +24,16 @@ message GetPostsResponse {
   google.protobuf.Duration cooldown = 5;
 }
 
+message SetPostsAsPublicRequest {
+  repeated string post_ids = 1;
+}
+
+message SetPostsAsPublicResponse {
+  repeated string updated_post_ids = 1;
+  google.protobuf.Timestamp updated_at = 2;
+}
+
 service PostService {
   rpc GetPosts (GetPostsRequest) returns (GetPostsResponse);
+  rpc SetPostsAsPublic (SetPostsAsPublicRequest) returns (SetPostsAsPublicResponse);
 }
