@@ -2,7 +2,6 @@ syntax = "proto3";
 package public.activity.v2;
 
 import "google/protobuf/duration.proto";
-import "google/protobuf/empty.proto";
 import "public/activity/v2/activity.proto";
 import "public/models/v2/known_entities.proto";
 import "public/models/v2/entities.proto";
@@ -21,10 +20,16 @@ message GetActivityFeedResponse {
 }
 
 message MarkActivitiesAsSeenRequest {
-  string id = 2;
+  bool all = 1;
+  repeated string entity_ids = 2;
+  repeated string activity_ids = 5;
+}
+
+message MarkActivitiesAsSeenResponse {
+
 }
 
 service ActivityService {
   rpc GetActivityFeed (GetActivityFeedRequest) returns (GetActivityFeedResponse);
-  rpc MarkActivitiesAsSeen (MarkActivitiesAsSeenRequest) returns (google.protobuf.Empty);
+  rpc MarkActivitiesAsSeen (MarkActivitiesAsSeenRequest) returns (MarkActivitiesAsSeenResponse);
 }
