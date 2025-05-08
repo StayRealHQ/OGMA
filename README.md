@@ -51,7 +51,8 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [x] `public.home.v2.StateService/GetMyState`
 - [ ] `public.location.v2.PlacesService/SearchPlaces`
 - [ ] `public.media.v2.MediaService/CreateUploadUrls`
-- [ ] `public.memories.v2.MemoriesService/GetMemoriesFeed`
+- [x] `public.memories.v2.MemoriesService/GetMemoriesFeed`
+- [x] `public.memories.v2.MemoriesService/GetTopMemories`
 - [ ] `public.pprofile.v2.PublicProfileService/GetFriendsWhoFollowTarget`
 - [ ] `public.relationship.v2.RelationshipService/GetUserRelationships`
 - [ ] `public.relationship.v2.RelationshipService/CreateRelationship`

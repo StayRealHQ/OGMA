@@ -1,0 +1,49 @@
+syntax = "proto3";
+package public.memories.v2;
+
+import "public/models/v2/known_entities.proto";
+import "public/models/v2/entities.proto";
+
+message GetMemoriesFeedRequest {
+  bytes cursor = 1;
+  public.models.v2.KnownEntities known_entities = 2;
+  bool reload_pins = 3;
+  string user_id = 4;
+}
+
+message GetMemoriesFeedResponse {
+  message Operation { // public.memories.v2.GetMemoriesFeedResponse__Operation
+    message UpdatePins { // public.memories.v2.GetMemoriesFeedResponse__Operation__UpdatePins
+      repeated string post_ids = 1;
+    }
+
+    message AddMemories { // public.memories.v2.GetMemoriesFeedResponse__Operation__AddMemories
+      repeated string post_ids = 1;
+    }
+
+    oneof operation {
+      AddMemories add_memories = 1;
+      UpdatePins update_pins = 2;
+    }
+  }
+
+  bytes cursor = 1;
+  public.models.v2.Entities entities = 2;
+  repeated Operation operations = 3;
+}
+
+message GetTopMemoriesRequest {
+  public.models.v2.KnownEntities known_entities = 1;
+  google.protobuf.Timestamp since = 2;
+  int32 max_posts = 3;
+}
+
+message GetTopMemoriesResponse {
+  public.models.v2.Entities entities = 1;
+  repeated string post_ids = 2;
+}
+
+service MemoriesService {
+  rpc GetMemoriesFeed (GetMemoriesFeedRequest) returns (GetMemoriesFeedResponse);
+  rpc GetTopMemories (GetTopMemoriesRequest) returns (GetTopMemoriesResponse);
+}
