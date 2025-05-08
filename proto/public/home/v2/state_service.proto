@@ -25,5 +25,5 @@ message GetMyStateResponse {
 }
 
 service StateService {
-  rpc GetMyState(GetMyStateRequest) returns (GetMyStateResponse) {}
+  rpc GetMyState (GetMyStateRequest) returns (GetMyStateResponse);
 }
