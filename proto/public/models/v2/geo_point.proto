@@ -1,0 +1,8 @@
+syntax = "proto3";
+package public.models.v2;
+
+message GeoPoint {
+  float lat = 1;
+  float lon = 2;
+  int32 precision = 3;
+}
