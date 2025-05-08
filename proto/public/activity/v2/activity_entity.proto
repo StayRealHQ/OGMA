@@ -1,0 +1,10 @@
+syntax = "proto3";
+package public.activity.v2;
+
+import "public/activity/v2/entity_type.proto";
+
+message ActivityEntity {
+  string id = 1;
+  public.activity.v2.EntityType type = 2;
+  string owner_id = 3;
+}

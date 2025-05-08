@@ -1,0 +1,16 @@
+syntax = "proto3";
+package public.activity.v2;
+
+import "google/protobuf/timestamp.proto";
+import "public/activity/v2/activity_entity.proto";
+import "public/activity/v2/activity_type.proto";
+
+message Activity {
+  string id = 1;
+  public.activity.v2.ActivityType type = 2;
+  public.activity.v2.ActivityEntity main_entity = 3;
+  repeated public.activity.v2.ActivityEntity sub_entities = 4;
+  int64 extra_count = 5;
+  bool seen = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}

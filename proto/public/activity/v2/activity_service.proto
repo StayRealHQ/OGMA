@@ -1,0 +1,30 @@
+syntax = "proto3";
+package public.activity.v2;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "public/activity/v2/activity.proto";
+import "public/models/v2/known_entities.proto";
+import "public/models/v2/entities.proto";
+
+message GetActivityFeedRequest {
+  bytes cursor = 1;
+  bool hydrate = 2;
+  public.models.v2.KnownEntities known_entities = 3;
+}
+
+message GetActivityFeedResponse {
+  bytes cursor = 1;
+  repeated public.activity.v2.Activity activities = 2;
+  public.models.v2.Entities entities = 3;
+  google.protobuf.Duration cool_down = 4;
+}
+
+message MarkActivitiesAsSeenRequest {
+  string id = 2;
+}
+
+service ActivityService {
+  rpc GetActivityFeed (GetActivityFeedRequest) returns (GetActivityFeedResponse);
+  rpc MarkActivitiesAsSeen (MarkActivitiesAsSeenRequest) returns (google.protobuf.Empty);
+}
