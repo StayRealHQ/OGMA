@@ -32,19 +32,19 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [x] `public.activity.v2.ActivityService/GetActivityFeed`
 - [x] `public.activity.v2.ActivityService/MarkActivitiesAsSeen`
 - [ ] `public.discovery.v2.FeedDiscoveryV2Service/GetFeedV2`
-- [ ] `public.entity.v2.UserService/GetUsers`
+- [ ] `public.entity.v2.UserService/GetUsers` (unavailable)
 - [x] `public.entity.v2.UserService/GetUserProfile`
-- [ ] `public.entity.v2.PostService/GetPosts`
-- [ ] `public.entity.v2.PostService/DeletePostRealmoji`
-- [ ] `public.entity.v2.PostService/CreatePostRealmoji`
-- [ ] `public.entity.v2.PostService/CreatePostComment`
+- [x] `public.entity.v2.PostService/GetPosts`
+- [ ] `public.entity.v2.PostService/DeletePostRealmoji` (unavailable)
+- [ ] `public.entity.v2.PostService/CreatePostRealmoji` (unavailable)
+- [ ] `public.entity.v2.PostService/CreatePostComment` (unavailable)
 - [ ] `public.entity.v2.PostService/SetPostsAsPublic`
 - [ ] `public.entity.v2.PostService/CreatePostLike`
 - [ ] `public.entity.v2.PostService/DeletePostLike`
-- [ ] `public.entity.v2.PostService/CreateCommentReaction`
-- [ ] `public.entity.v2.PostService/DeleteCommentReaction`
-- [ ] `public.entity.v2.PostService/GetUserCommentReactions`
-- [ ] `public.entity.v2.PostService/GetNbCommentReactions`
+- [ ] `public.entity.v2.PostService/CreateCommentReaction` (unavailable)
+- [ ] `public.entity.v2.PostService/DeleteCommentReaction` (unavailable)
+- [ ] `public.entity.v2.PostService/GetUserCommentReactions` (unavailable)
+- [ ] `public.entity.v2.PostService/GetNbCommentReactions` (unavailable)
 - [ ] `public.home.v2.FeedService/GetHomeFeed`
 - [ ] `public.home.v2.FeedService/MarkPostsAsSeen`
 - [ ] `public.home.v2.FeedService/GetWhatYouMissed`
