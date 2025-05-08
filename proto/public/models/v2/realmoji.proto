@@ -1,0 +1,15 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "google/protobuf/timestamp.proto";
+import "public/models/v2/cache_control.proto";
+import "public/models/v2/media.proto";
+
+message Realmoji {
+  string id = 1;
+  string user_id = 2;
+  optional public.models.v2.Media media = 3;
+  string emoji = 4;
+  optional google.protobuf.Timestamp posted_at = 5;
+  optional public.models.v2.CacheControl cache_control = 6;
+}
