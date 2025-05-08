@@ -1,0 +1,103 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "public/models/v2/parent_post_metadata.proto";
+import "public/models/v2/cache_control.proto";
+import "public/models/v2/thumbnails.proto";
+import "public/models/v2/screenshot.proto";
+import "public/models/v2/geo_point.proto";
+import "public/models/v2/realmoji.proto";
+import "public/models/v2/comment.proto";
+import "public/models/v2/media.proto";
+import "public/models/v2/music.proto";
+import "public/models/v2/tag.proto";
+
+message Post {
+  enum Audience { // public.models.v2.Post__Audience
+    AUDIENCE_UNSPECIFIED = 0;
+    AUDIENCE_FANS = 1;
+    AUDIENCE_EVERYONE = 2;
+  }
+
+  enum Origin { // public.models.v2.Post__Origin
+    ORIGIN_UNSPECIFIED = 0;
+    ORIGIN_OWN = 1;
+    ORIGIN_REPOST = 2;
+  }
+
+  enum Visibility { // public.models.v2.Post__Visibility
+    VISIBILITY_UNSPECIFIED = 0;
+    VISIBILITY_PUBLIC = 1;
+    VISIBILITY_FRIENDS = 2;
+    VISIBILITY_FRIENDS_OF_FRIENDS = 3;
+  }
+
+  enum Type { // public.models.v2.Post__Type
+    TYPE_UNSPECIFIED = 0;
+    TYPE_EVENT = 1;
+    TYPE_REAL = 2;
+    TYPE_CHAT = 3;
+    TYPE_STORY = 4;
+  }
+
+  enum Format { // public.models.v2.Post__Format
+    FORMAT_UNSPECIFIED = 0;
+    FORMAT_DEFAULT = 1;
+    FORMAT_BTS = 2;
+    FORMAT_FREERIDE = 3;
+    FORMAT_REALETTE = 4;
+    FORMAT_DUAL_VIDEO = 5;
+    FORMAT_CAMERA_ROLL = 6;
+    FORMAT_CAMERA_ROLL_VIDEO = 7;
+    FORMAT_SINGLE_PHOTO = 8;
+    FORMAT_SINGLE_VIDEO = 9;
+  }
+
+  message Counters { // public.models.v2.Post__Counters
+    string id = 1;
+    int64 comments = 2;
+    int64 realmojis = 3;
+  }
+
+  string id = 1;
+  string user_id = 2;
+  string moment_id = 3;
+  public.models.v2.Media primary = 4;
+  public.models.v2.Media secondary = 5;
+  public.models.v2.Media primary_extra = 6;
+  public.models.v2.GeoPoint location = 7;
+  public.models.v2.Music music = 8;
+  repeated public.models.v2.Realmoji realmojis = 9;
+  repeated public.models.v2.Comment comments = 10;
+  repeated public.models.v2.Screenshot screenshots = 11;
+  repeated public.models.v2.Tag tags = 12;
+  string caption = 13;
+  int32 retake_count = 14;
+  google.protobuf.Duration late_by = 15;
+  bool is_late = 16;
+  bool is_main = 17;
+  repeated Visibility visibilities = 18;
+  Origin origin = 19;
+  public.models.v2.ParentPostMetadata parent_post_metadata = 20;
+  google.protobuf.Timestamp posted_at = 21;
+  google.protobuf.Timestamp taken_at = 22;
+  google.protobuf.Timestamp created_at = 23;
+  google.protobuf.Timestamp updated_at = 24;
+  int32 unblur_count = 25;
+  Format format = 26;
+  Audience audience = 27;
+  google.protobuf.Timestamp realette_source_taken_at = 28;
+  public.models.v2.GeoPoint realette_source_location = 29;
+  string event_id = 30;
+  public.models.v2.CacheControl cache_control = 31;
+  public.models.v2.Media secondary_extra = 32;
+  repeated string targeted_users_ids = 33;
+  Counters counters = 34;
+  public.models.v2.Thumbnails thumbnails = 35;
+  string overlay_text = 36;
+  Type type = 37;
+  bool is_first_post_in_a_while = 38;
+  bool is_first_post_ever = 39;
+}
