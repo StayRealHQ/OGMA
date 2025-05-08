@@ -4,6 +4,6 @@ package common.core.v1;
 import "opaque.proto";
 
 message PageCursor {
-  optional Opaque top = 1;
-  optional Opaque bottom = 2;
+  Opaque top = 1;
+  Opaque bottom = 2;
 }

@@ -10,16 +10,16 @@ import "public/models/v2/error.proto";
 
 message GetMyStateRequest {
   bytes cursor = 1;
-  optional public.models.v2.KnownEntities known_entities = 2;
+  public.models.v2.KnownEntities known_entities = 2;
 }
 
 message GetMyStateResponse {
   bytes cursor = 1;
-  optional public.models.v2.Entities entities = 2;
-  optional public.models.v2.Moment moment = 4;
+  public.models.v2.Entities entities = 2;
+  public.models.v2.Moment moment = 4;
   repeated public.models.v2.Relationship relationships = 5;
   repeated public.models.v2.Error errors = 6;
-  optional google.protobuf.Duration cooldown = 7;
+  google.protobuf.Duration cooldown = 7;
   repeated string post_ids = 8;
   int32 remaining_posts = 9;
 }

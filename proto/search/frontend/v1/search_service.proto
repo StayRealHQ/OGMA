@@ -19,13 +19,13 @@ message SearchUsersResponse {
 
 message OASearchRequest {
   string query = 1;
-  optional common.core.v1.Cursor cursor = 2;
+  common.core.v1.Cursor cursor = 2;
   int32 limit = 3;
 }
 
 message OASearchResponse {
-  optional common.client.v1.Entities entities = 1;
-  optional common.core.v1.PageCursor cursor = 2;
+  common.client.v1.Entities entities = 1;
+  common.core.v1.PageCursor cursor = 2;
 }
 
 service SearchService {

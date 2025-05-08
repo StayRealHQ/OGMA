@@ -11,13 +11,13 @@ message User {
   public.models.v2.UserType type = 2;
   string username = 3;
   string fullname = 4;
-  optional public.models.v2.Media profile_picture = 5;
-  optional public.models.v2.CacheControl cache_control = 6;
+  public.models.v2.Media profile_picture = 5;
+  public.models.v2.CacheControl cache_control = 6;
   int32 region = 7;
   string biography = 8;
   string location = 9;
   bool is_verified = 10;
-  optional int32 age = 11;
+  int32 age = 11;
   repeated public.models.v2.ProfileLink links = 12;
-  optional int64 streak_length = 13;
+  int64 streak_length = 13;
 }

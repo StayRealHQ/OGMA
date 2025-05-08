@@ -11,5 +11,5 @@ message User {
   string username = 3;
   string fullname = 4;
   common.core.v1.MediaReference profile_picture = 5;
-  optional bool is_verified = 6;
+  bool is_verified = 6;
 }

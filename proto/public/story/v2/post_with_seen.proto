@@ -4,7 +4,7 @@ package public.story.v2;
 import "public/models/v2/post.proto";
 
 message PostWithSeen {
-  optional public.models.v2.Post post = 1;
-  optional bool seen = 2;
-  optional bool liked = 3;
+  public.models.v2.Post post = 1;
+  bool seen = 2;
+  bool liked = 3;
 }

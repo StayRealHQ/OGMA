@@ -4,6 +4,6 @@ package public.models.v2;
 import "google/protobuf/duration.proto";
 
 message CacheControl {
-  optional google.protobuf.Duration max_age = 1;
-  optional google.protobuf.Duration delete_after = 2;
+  google.protobuf.Duration max_age = 1;
+  google.protobuf.Duration delete_after = 2;
 }
