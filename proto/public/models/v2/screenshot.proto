@@ -1,0 +1,10 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "google/protobuf/timestamp.proto";
+
+message Screenshot {
+  string id = 1;
+  string user_id = 2;
+  google.protobuf.Timestamp posted_at = 3;
+}
