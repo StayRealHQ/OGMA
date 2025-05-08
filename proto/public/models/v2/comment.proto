@@ -1,0 +1,16 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "google/protobuf/timestamp.proto";
+import "public/models/v2/cache_control.proto";
+import "public/models/v2/tag.proto";
+
+message Comment {
+  string id = 1;
+  string user_id = 2;
+  string text = 3;
+  repeated public.models.v2.Tag tags = 4;
+  google.protobuf.Timestamp posted_at = 5;
+  public.models.v2.CacheControl cache_control = 6;
+  string parent_id = 7;
+}
