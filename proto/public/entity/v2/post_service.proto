@@ -9,6 +9,22 @@ import "public/models/v2/relationship.proto";
 import "public/models/v2/entities.proto";
 import "public/models/v2/error.proto";
 
+message CreatePostLikeRequest {
+  string post_id = 1;
+}
+
+message CreatePostLikeResponse {
+
+}
+
+message DeletePostLikeRequest {
+  string post_id = 1;
+}
+
+message DeletePostLikeResponse {
+
+}
+
 message GetPostsRequest {
   repeated string post_ids = 1;
   public.models.v2.KnownEntities known_entities = 2;
@@ -34,6 +50,8 @@ message SetPostsAsPublicResponse {
 }
 
 service PostService {
+  rpc CreatePostLike (CreatePostLikeRequest) returns (CreatePostLikeResponse);
+  rpc DeletePostLike (DeletePostLikeRequest) returns (DeletePostLikeResponse);
   rpc GetPosts (GetPostsRequest) returns (GetPostsResponse);
   rpc SetPostsAsPublic (SetPostsAsPublicRequest) returns (SetPostsAsPublicResponse);
 }
