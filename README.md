@@ -2,7 +2,8 @@
 
 A reverse engineering of `.proto` files for calling the gRPC services of a popular authentic social network.
 
-## Roadmap
+<details>
+  <summary>Roadmap</summary>
 
 - [ ] `chat.core.v1.ChatCoreService/SendMessage`
 - [ ] `chat.core.v1.ChatCoreService/GetMessages`
@@ -209,7 +210,9 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `search.frontend.v1.SearchService/OASearch`
 - [ ] `search.frontend.v1.SearchService/SearchUsers`
 
-...and there's still a lot missing in this list !
+...and there's still probably missing methods in there !
+
+</details>
 
 ## Generating a `.desc` file
 
