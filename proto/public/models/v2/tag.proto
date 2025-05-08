@@ -1,0 +1,20 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "public/models/v2/cache_control.proto";
+
+message Tag {
+  enum Type { // public.models.v2.Tag__Type
+    TYPE_UNSPECIFIED = 0;
+    TYPE_MENTION = 1;
+    TYPE_TAG = 2;
+  }
+
+  string targeted_user_id = 1;
+  string replace_text = 2;
+  string search_text = 3;
+  int32 end_index = 4;
+  bool is_untagged = 5;
+  Type type = 6;
+  public.models.v2.CacheControl cache_control = 7;
+}
