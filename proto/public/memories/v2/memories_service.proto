@@ -1,6 +1,7 @@
 syntax = "proto3";
 package public.memories.v2;
 
+import "google/protobuf/timestamp.proto";
 import "public/models/v2/known_entities.proto";
 import "public/models/v2/entities.proto";
 
