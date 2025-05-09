@@ -1,0 +1,84 @@
+syntax = "proto3";
+package public.home.v2;
+
+import "public/models/v2/hydratation_window.proto";
+import "public/models/v2/known_entities.proto";
+import "public/models/v2/tracking_item.proto";
+import "public/models/v2/geo_point.proto";
+
+message GetHomeFeedRequest {
+  message ADN {
+    bool insert = 1;
+    bool invalidate_cache = 2;
+    int32 first_idx = 3;
+    int32 period = 4;
+    optional string ifa = 5;
+    string ifv = 6;
+    public.models.v2.GeoPoint location = 7;
+    optional bool test = 8;
+  }
+
+  message GraphsHashes {
+    string friends = 1;
+    string follow = 2;
+    string block = 3;
+  }
+
+  bytes cursor = 1;
+  int32 direction = 2;
+  optional public.models.v2.KnownEntities known_entities = 3;
+  public.models.v2.HydratationWindow hydratation_window = 4;
+  optional GraphsHashes graphs_hashes = 6;
+  int32 hydration_size = 7;
+  bool hydration_full_feed = 8;
+  optional ADN adn = 9;
+}
+
+message GetHomeFeedResponse {
+  message Operation {
+    message Post {
+      string id = 1;
+      bool is_seen = 2;
+      bool is_sponsored = 3;
+    }
+
+    message Add {
+      message Ad {
+        string id = 1;
+      }
+
+      repeated Post posts = 1;
+      Ad ad = 2;
+    }
+
+    message Delete {
+      repeated Post posts = 1;
+    }
+
+    message Clear {
+
+    }
+
+    message Terminate {
+      google.protobuf.Duration timeout = 1;
+    }
+
+    Add add = 1;
+    Delete delete = 2;
+    Clear clear = 3;
+    Terminate terminate = 4;
+  }
+
+  bytes cursor = 1;
+  Entities entities = 2;
+  repeated Relationship relationships = 3;
+  repeated Operation operations = 4;
+  repeated Error errors = 5;
+  repeated int32 complete_graphs = 6; // = Array<public.models.v2.GraphType>
+  int32 author_count = 7;
+  map<string, public.models.v2.TrackingItem> tracking_plan = 8;
+}
+
+service FeedService {
+  rpc GetHomeFeed (GetHomeFeedRequest) returns (GetHomeFeedResponse);
+}

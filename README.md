@@ -46,7 +46,7 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `public.entity.v2.PostService/DeleteCommentReaction` (unavailable)
 - [ ] `public.entity.v2.PostService/GetUserCommentReactions` (unavailable)
 - [ ] `public.entity.v2.PostService/GetNbCommentReactions` (unavailable)
-- [ ] `public.home.v2.FeedService/GetHomeFeed`
+- [x] `public.home.v2.FeedService/GetHomeFeed`
 - [ ] `public.home.v2.FeedService/MarkPostsAsSeen`
 - [ ] `public.home.v2.FeedService/GetWhatYouMissed`
 - [x] `public.home.v2.StateService/GetMyState`
