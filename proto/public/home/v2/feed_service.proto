@@ -5,6 +5,7 @@ import "public/models/v2/hydratation_window.proto";
 import "public/models/v2/known_entities.proto";
 import "public/models/v2/tracking_item.proto";
 import "public/models/v2/geo_point.proto";
+import "public/models/v2/entities.proto";
 
 message GetHomeFeedRequest {
   message ADN {
@@ -85,7 +86,7 @@ message GetWhatYouMissedRequest {
 
 message GetWhatYouMissedResponse {
   repeated string post_ids = 1;
-  Entities entities = 2;
+  public.models.v2.Entities entities = 2;
 }
 
 service FeedService {
