@@ -1,9 +1,10 @@
 syntax = "proto3";
-package public.story.v2;
+package public.models.v2;
 
 import "public/models/v2/post.proto";
 
 message PostWithSeen {
   public.models.v2.Post post = 1;
   bool seen = 2;
+  bool liked = 3;
 }
