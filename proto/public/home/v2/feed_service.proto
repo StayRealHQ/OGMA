@@ -89,7 +89,16 @@ message GetWhatYouMissedResponse {
   public.models.v2.Entities entities = 2;
 }
 
+message MarkPostsAsSeenRequest {
+  repeated string post_ids = 1;
+}
+
+message MarkPostsAsSeenResponse {
+
+}
+
 service FeedService {
   rpc GetHomeFeed (GetHomeFeedRequest) returns (GetHomeFeedResponse);
   rpc GetWhatYouMissed (GetWhatYouMissedRequest) returns (GetWhatYouMissedResponse);
+  rpc MarkPostsAsSeen (MarkPostsAsSeenRequest) returns (MarkPostsAsSeenResponse);
 }
