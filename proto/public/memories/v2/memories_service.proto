@@ -13,12 +13,12 @@ message GetMemoriesFeedRequest {
 }
 
 message GetMemoriesFeedResponse {
-  message Operation { // public.memories.v2.GetMemoriesFeedResponse__Operation
-    message UpdatePins { // public.memories.v2.GetMemoriesFeedResponse__Operation__UpdatePins
+  message Operation {
+    message UpdatePins {
       repeated string post_ids = 1;
     }
 
-    message AddMemories { // public.memories.v2.GetMemoriesFeedResponse__Operation__AddMemories
+    message AddMemories {
       repeated string post_ids = 1;
     }
 
