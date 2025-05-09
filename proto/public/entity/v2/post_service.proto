@@ -29,7 +29,7 @@ message GetPostsRequest {
   repeated string post_ids = 1;
   public.models.v2.KnownEntities known_entities = 2;
   int32 hydration_size = 3;
-  repeated int32 extra_features = 4;
+  repeated int32 extra_features = 4; // = Array<public.models.v2.ExtraFeature>
 }
 
 message GetPostsResponse {

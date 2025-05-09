@@ -1,0 +1,7 @@
+syntax = "proto3";
+package public.models.v2;
+
+enum ExtraFeature {
+  EXTRA_FEATURE_UNSPECIFIED = 0;
+  EXTRA_FEATURE_NESTED_COMMENTS = 1;
+}
