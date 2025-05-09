@@ -1,10 +1,10 @@
 syntax = "proto3";
 package public.models.v2;
 
-import "public/story/v2/post_with_seen.proto";
+import "public/models/v2/post_with_seen.proto";
 
 message Story {
   string user_id = 1;
-  repeated public.story.v2.PostWithSeen posts = 2;
+  repeated public.models.v2.PostWithSeen posts = 2;
   bool seen = 3;
 }
