@@ -20,4 +20,5 @@ message User {
   int32 age = 11;
   repeated public.models.v2.ProfileLink links = 12;
   int64 streak_length = 13;
+  string hashed_phone_number = 14;
 }
