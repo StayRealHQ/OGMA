@@ -1,0 +1,41 @@
+syntax = "proto3";
+package public.story.v2;
+
+import "google/protobuf/timestamp.proto";
+import "public/story/v2/post_with_seen.proto";
+import "public/models/v2/user.proto";
+import "public/models/v2/post.proto";
+
+message GetMyStoriesRequest {
+
+}
+
+message GetMyStoriesResponse {
+  public.models.v2.User user = 1;
+  repeated public.models.v2.Post posts = 2;
+  repeated public.story.v2.PostWithSeen stories = 3;
+  bool seen = 4;
+}
+
+message GetMyStoryActivityRequest {
+  string story_id = 1;
+  bytes cursor = 2;
+}
+
+message GetMyStoryActivityResponse {
+  message User {
+    public.models.v2.User user = 1;
+    bool liked = 2;
+    google.protobuf.Timestamp seen_at = 3;
+  }
+
+  repeated User users = 1;
+  bytes cursor = 2;
+  int64 nb_likes = 3;
+  int64 nb_views = 4;
+}
+
+service StoryService {
+  rpc GetMyStories (GetMyStoriesRequest) returns (GetMyStoriesResponse);
+  rpc GetMyStoryActivity (GetMyStoryActivityRequest) returns (GetMyStoryActivityResponse);
+}

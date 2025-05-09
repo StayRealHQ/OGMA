@@ -59,8 +59,8 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `public.relationship.v2.RelationshipService/CreateRelationship`
 - [ ] `public.relationship.v2.RelationshipService/DeleteRelationship`
 - [ ] `public.relationship.v2.RelationshipService/ListRelationships`
-- [ ] `public.story.v2.StoryService/GetMyStories`
-- [ ] `public.story.v2.StoryService/GetMyStoryActivity`
+- [x] `public.story.v2.StoryService/GetMyStories`
+- [x] `public.story.v2.StoryService/GetMyStoryActivity`
 - [ ] `public.topic.v2.TopicService/SearchTopics`
 - [ ] `public.topic.v2.TopicService/GetExploreFeed`
 - [ ] `public.topic.v2.UserInterestService/GetUserInterest`
