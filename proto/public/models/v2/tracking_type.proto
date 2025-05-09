@@ -1,0 +1,8 @@
+syntax = "proto3";
+package public.models.v2;
+
+enum TrackingType {
+  TRACKING_TYPE_UNSPECIFIED = 0;
+  TRACKING_TYPE_DIRECT_DEAL = 1;
+  TRACKING_TYPE_POST = 2;
+}

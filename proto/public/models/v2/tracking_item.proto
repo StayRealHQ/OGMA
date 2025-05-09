@@ -1,0 +1,13 @@
+syntax = "proto3";
+package public.models.v2;
+
+import "public/models/v2/tracking_type.proto";
+
+message TrackingItem {
+  public.models.v2.TrackingType type = 1;
+  string adm = 2;
+  repeated string imp_trackers = 3;
+  repeated string click_trackers = 4;
+  float aspect_ratio = 5;
+  string preview = 6;
+}
