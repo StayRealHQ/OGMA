@@ -1,0 +1,8 @@
+syntax = "proto3";
+package public.models.v2;
+
+message PaginationResponse {
+  string next_cursor = 1;
+  string previous_cursor = 2;
+  int64 total = 3;
+}

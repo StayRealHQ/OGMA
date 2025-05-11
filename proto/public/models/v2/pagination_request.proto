@@ -1,0 +1,7 @@
+syntax = "proto3";
+package public.models.v2;
+
+message PaginationRequest {
+  string cursor = 1;
+  bool count_total = 2;
+}
