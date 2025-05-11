@@ -1,0 +1,12 @@
+syntax = "proto3";
+package media.upload.v1;
+
+import "media/upload/v1/google_upload_url.proto";
+import "media/upload/v1/aws_upload_url.proto";
+
+message CameraRollUploadUrl {
+  oneof url {
+    media.upload.v1.GoogleUploadUrl google_url = 1;
+    media.upload.v1.AWSUploadUrl aws_url = 2;
+  }
+}

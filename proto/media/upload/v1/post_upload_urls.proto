@@ -1,0 +1,26 @@
+syntax = "proto3";
+package media.upload.v1;
+
+import "google/protobuf/timestamp.proto";
+import "media/upload/v1/google_upload_url.proto";
+import "media/upload/v1/aws_upload_url.proto";
+
+message PostUploadUrls {
+  enum Provider {
+    PROVIDER_UNSPECIFIED = 0;
+    PROVIDER_GOOGLE = 1;
+    PROVIDER_AWS = 2;
+  }
+
+  Provider provider = 1;
+
+  oneof primary {
+    media.upload.v1.GoogleUploadUrl primary_google_url = 2;
+    media.upload.v1.AWSUploadUrl primary_aws_url = 3;
+  }
+
+  oneof secondary {
+    media.upload.v1.GoogleUploadUrl secondary_google_url = 4;
+    media.upload.v1.AWSUploadUrl secondary_aws_url = 5;
+  }
+}

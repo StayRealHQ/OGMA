@@ -1,0 +1,6 @@
+syntax = "proto3";
+package media.upload.v1;
+
+message AWSUploadUrl {
+  string id = 1;
+}

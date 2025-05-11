@@ -1,0 +1,31 @@
+syntax = "proto3";
+package media.upload.v1;
+
+import "media/upload/v1/camera_roll_thumbnail_upload_url.proto";
+import "media/upload/v1/camera_roll_upload_url.proto";
+import "media/upload/v1/instant_realmoji_url.proto";
+import "media/upload/v1/post_upload_urls.proto";
+
+message CreateUploadUrlsRequest {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_CHAT_POST = 1;
+    TYPE_CHAT_INSTANT_REALMOJI = 2;
+    TYPE_CHAT_CAMERA_ROLL = 3;
+    TYPE_CHAT_CAMERA_ROLL_THUMBNAIL = 4;
+  }
+
+  Type type = 1;
+  string mime_type = 2;
+}
+
+message CreateUploadUrlsResponse {
+  repeated media.upload.v1.PostUploadUrls post = 1;
+  repeated media.upload.v1.InstantRealmojiUrl instant_realmoji = 2;
+  repeated media.upload.v1.CameraRollUploadUrl camera_rolls = 3;
+  repeated media.upload.v1.CameraRollThumbnailUploadUrl camera_roll_thumbnails = 4;
+}
+
+service MediaUploadService {
+  rpc CreateUploadUrls (CreateUploadUrlsRequest) returns (CreateUploadUrlsResponse);
+}

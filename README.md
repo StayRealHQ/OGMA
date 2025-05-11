@@ -27,7 +27,7 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `chat.core.v1.ChatCoreService/GetInviteLink`
 - [ ] `chat.core.v1.ChatCoreService/ViewInviteLink`
 - [ ] `chat.core.v1.ChatCoreService/JoinByInviteLink`
-- [ ] `media.upload.v1.MediaUploadService/CreateUploadUrls`
+- [x] `media.upload.v1.MediaUploadService/CreateUploadUrls`
 - [ ] `realtime.core.v1.RealTimeStreamService/Stream`
 - [ ] `realtime.core.v1.RealTimeRouterService/Send`
 - [x] `public.activity.v2.ActivityService/GetActivityFeed`
