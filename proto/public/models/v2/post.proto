@@ -15,26 +15,26 @@ import "public/models/v2/music.proto";
 import "public/models/v2/tag.proto";
 
 message Post {
-  enum Audience { // public.models.v2.Post__Audience
+  enum Audience {
     AUDIENCE_UNSPECIFIED = 0;
     AUDIENCE_FANS = 1;
     AUDIENCE_EVERYONE = 2;
   }
 
-  enum Origin { // public.models.v2.Post__Origin
+  enum Origin {
     ORIGIN_UNSPECIFIED = 0;
     ORIGIN_OWN = 1;
     ORIGIN_REPOST = 2;
   }
 
-  enum Visibility { // public.models.v2.Post__Visibility
+  enum Visibility {
     VISIBILITY_UNSPECIFIED = 0;
     VISIBILITY_PUBLIC = 1;
     VISIBILITY_FRIENDS = 2;
     VISIBILITY_FRIENDS_OF_FRIENDS = 3;
   }
 
-  enum Type { // public.models.v2.Post__Type
+  enum Type {
     TYPE_UNSPECIFIED = 0;
     TYPE_EVENT = 1;
     TYPE_REAL = 2;
@@ -42,7 +42,7 @@ message Post {
     TYPE_STORY = 4;
   }
 
-  enum Format { // public.models.v2.Post__Format
+  enum Format {
     FORMAT_UNSPECIFIED = 0;
     FORMAT_DEFAULT = 1;
     FORMAT_BTS = 2;
@@ -55,7 +55,7 @@ message Post {
     FORMAT_SINGLE_VIDEO = 9;
   }
 
-  message Counters { // public.models.v2.Post__Counters
+  message Counters {
     string id = 1;
     int64 comments = 2;
     int64 realmojis = 3;
