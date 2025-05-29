@@ -75,13 +75,14 @@ message GetHomeFeedResponse {
   repeated Relationship relationships = 3;
   repeated Operation operations = 4;
   repeated Error errors = 5;
-  repeated int32 complete_graphs = 6; // = Array<public.models.v2.GraphType>
+  repeated public.models.v2.GraphType complete_graphs = 6;
   int32 author_count = 7;
   map<string, public.models.v2.TrackingItem> tracking_plan = 8;
 }
 
 message GetWhatYouMissedRequest {
   optional public.models.v2.KnownEntities known_entities = 3;
+  int32 limit = 4;
 }
 
 message GetWhatYouMissedResponse {

@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 import "public/models/v2/known_entities.proto";
 import "public/models/v2/page_metadata.proto";
+import "public/models/v2/extra_feature.proto";
 import "public/models/v2/relationship.proto";
 import "public/models/v2/entities.proto";
 import "public/models/v2/error.proto";
@@ -29,7 +30,7 @@ message GetPostsRequest {
   repeated string post_ids = 1;
   public.models.v2.KnownEntities known_entities = 2;
   int32 hydration_size = 3;
-  repeated int32 extra_features = 4; // = Array<public.models.v2.ExtraFeature>
+  repeated public.models.v2.ExtraFeature extra_features = 4;
 }
 
 message GetPostsResponse {
