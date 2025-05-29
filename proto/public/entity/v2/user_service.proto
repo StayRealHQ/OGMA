@@ -10,12 +10,12 @@ message GetUserProfileRequest {
 }
 
 message GetUserProfileResponse {
-  message CommonFriends { // public.entity.v2.GetUserProfileResponse__CommonFriends
+  message CommonFriends {
     repeated public.models.v2.User users = 1;
     int32 total = 2;
   }
 
-  message Counter { // public.entity.v2.GetUserProfileResponse__Counter
+  message Counter {
     string id = 1;
     int64 posts = 2;
     int64 followers = 3;

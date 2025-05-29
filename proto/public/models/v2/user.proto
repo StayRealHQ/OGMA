@@ -21,4 +21,7 @@ message User {
   repeated public.models.v2.ProfileLink links = 12;
   int64 streak_length = 13;
   string hashed_phone_number = 14;
+  int32 astro_sign = 15; // TODO: find the enumeration for astro_sign
+  string occupation = 16;
+  string school = 17;
 }
