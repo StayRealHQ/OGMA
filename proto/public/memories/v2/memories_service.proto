@@ -22,10 +22,8 @@ message GetMemoriesFeedResponse {
       repeated string post_ids = 1;
     }
 
-    oneof operation {
-      AddMemories add_memories = 1;
-      UpdatePins update_pins = 2;
-    }
+    AddMemories add_memories = 1;
+    UpdatePins update_pins = 2;
   }
 
   bytes cursor = 1;
