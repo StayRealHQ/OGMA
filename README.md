@@ -27,14 +27,20 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `chat.core.v1.ChatCoreService/GetInviteLink`
 - [ ] `chat.core.v1.ChatCoreService/ViewInviteLink`
 - [ ] `chat.core.v1.ChatCoreService/JoinByInviteLink`
+
 - [x] `media.upload.v1.MediaUploadService/CreateUploadUrls`
+
 - [ ] `realtime.core.v1.RealTimeStreamService/Stream`
 - [ ] `realtime.core.v1.RealTimeRouterService/Send`
+
 - [x] `public.activity.v2.ActivityService/GetActivityFeed`
 - [x] `public.activity.v2.ActivityService/MarkActivitiesAsSeen`
+
 - [ ] `public.discovery.v2.FeedDiscoveryV2Service/GetFeedV2`
+
 - [ ] `public.entity.v2.UserService/GetUsers` (unavailable)
 - [x] `public.entity.v2.UserService/GetUserProfile`
+
 - [x] `public.entity.v2.PostService/GetPosts`
 - [ ] `public.entity.v2.PostService/DeletePostRealmoji` (unavailable)
 - [ ] `public.entity.v2.PostService/CreatePostRealmoji` (unavailable)
@@ -46,31 +52,43 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `public.entity.v2.PostService/DeleteCommentReaction` (unavailable)
 - [ ] `public.entity.v2.PostService/GetUserCommentReactions` (unavailable)
 - [ ] `public.entity.v2.PostService/GetNbCommentReactions` (unavailable)
+
 - [x] `public.home.v2.FeedService/GetHomeFeed`
 - [x] `public.home.v2.FeedService/MarkPostsAsSeen`
 - [x] `public.home.v2.FeedService/GetWhatYouMissed`
+
 - [x] `public.home.v2.StateService/GetMyState`
+
 - [ ] `public.location.v2.PlacesService/SearchPlaces`
+
 - [ ] `public.media.v2.MediaService/CreateUploadUrls` (unavailable)
+
 - [x] `public.memories.v2.MemoriesService/GetMemoriesFeed`
 - [x] `public.memories.v2.MemoriesService/GetTopMemories`
+
 - [ ] `public.pprofile.v2.PublicProfileService/GetFriendsWhoFollowTarget`
+
 - [x] `public.relationship.v2.RelationshipService/GetUserRelationships`
 - [x] `public.relationship.v2.RelationshipService/CreateRelationship`
 - [x] `public.relationship.v2.RelationshipService/DeleteRelationship`
 - [x] `public.relationship.v2.RelationshipService/ListRelationships`
+
 - [x] `public.story.v2.StoryService/GetMyStories`
 - [x] `public.story.v2.StoryService/GetMyStoryActivity`
+
 - [ ] `public.topic.v2.TopicService/SearchTopics`
 - [ ] `public.topic.v2.TopicService/GetExploreFeed`
+
 - [ ] `public.topic.v2.UserInterestService/GetUserInterest`
 - [ ] `public.topic.v2.UserInterestService/PutUserInterest`
 - [ ] `public.topic.v2.UserInterestService/GetContentTaxonomy`
+
 - [ ] `contacts.core.v1.ContactsService/Delete`
 - [ ] `contacts.core.v1.ContactsService/GetMatchedFriends`
 - [ ] `contacts.core.v1.ContactsService/GetSuggestions`
 - [ ] `contacts.core.v1.ContactsService/HideSuggestions`
 - [ ] `contacts.core.v1.ContactsService/Upload`
+
 - [ ] `entity.user.v1.UserService/GetOAUsers`
 - [ ] `entity.user.v1.UserService/GetUser`
 - [ ] `entity.user.v1.UserService/GenUsernames`
@@ -94,11 +112,13 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `entity.user.v1.UserService/GetStreak`
 - [ ] `entity.user.v1.UserService/GetStreaks`
 - [ ] `entity.user.v1.UserService/UpdateStreak`
+
 - [ ] `feed.discovery.v1.FeedDiscoveryService/GetFeed`
 - [ ] `feed.discovery.v1.FeedDiscoveryService/FeedInteraction`
 - [ ] `feed.discovery.v1.FeedDiscoveryService/PostSeen`
 - [ ] `feed.discovery.v1.FeedDiscoveryService/ResetSeenPosts`
 - [ ] `feed.discovery.v1.FeedDiscoveryService/GetPublicPosts`
+
 - [ ] `entity.event.v1.EventService/CreateEvent`
 - [ ] `entity.event.v1.EventService/GetEvent`
 - [ ] `entity.event.v1.EventService/UpdateEvent`
@@ -109,12 +129,14 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `entity.event.v1.EventService/UpdateVenue`
 - [ ] `entity.event.v1.EventService/DeleteVenue`
 - [ ] `entity.event.v1.EventService/GetAllVenues`
+
 - [ ] `entity.post.v1.PostService/GetPost`
 - [ ] `entity.post.v1.PostService/GetPosts`
 - [ ] `entity.post.v1.PostService/GetPostInteractions`
 - [ ] `entity.post.v1.PostService/GetPostInteractionCounts`
 - [ ] `entity.post.v1.PostService/GetUserInteractions`
 - [ ] `entity.post.v1.PostService/GetCommentsByStatus`
+
 - [ ] `entity.post.v1.UnifiedPostService/GetUnifiedPost`
 - [ ] `entity.post.v1.UnifiedPostService/GetUnifiedPosts`
 - [ ] `entity.post.v1.UnifiedPostService/CreateUnifiedPost`
@@ -134,23 +156,31 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `entity.post.v1.UnifiedPostService/GetUnifiedPostTags`
 - [ ] `entity.post.v1.UnifiedPostService/CreateUnifiedPostScreenshot`
 - [ ] `entity.post.v1.UnifiedPostService/GetUnifiedPostScreenshots`
+
 - [ ] `event.frontend.v1.EventViewService/GetMainEventView`
+
 - [ ] `event.frontend.v1.EventMembershipService/JoinEvent`
 - [ ] `event.frontend.v1.EventMembershipService/LeaveEvent`
 - [ ] `event.frontend.v1.EventMembershipService/UpdateEventLocation`
+
 - [ ] `event.frontend.v1.EventFeedService/GetOfficialFeed`
 - [ ] `event.frontend.v1.EventFeedService/GetOwnAndFriendsFeed`
 - [ ] `event.frontend.v1.EventFeedService/GetOnsiteFeed`
 - [ ] `event.frontend.v1.EventFeedService/GetOffsiteFeed`
 - [ ] `event.frontend.v1.EventFeedService/GetEveryoneFeed`
+
 - [ ] `event.frontend.v1.EventSearchService/GetAllEvents`
+
 - [ ] `event.frontend.v1.EventPostService/CreatePost`
 - [ ] `event.frontend.v1.EventPostService/DeletePost`
+
 - [ ] `event.frontend.v1.EventAdminService/CreateEvent`
 - [ ] `event.frontend.v1.EventAdminService/DeleteEvent`
 - [ ] `event.frontend.v1.EventAdminService/TriggerNotification`
+
 - [ ] `officialaccounts.discovery.v1.DiscoveryService/GetRecommendations`
 - [ ] `officialaccounts.discovery.v1.DiscoveryService/GetAll`
+
 - [ ] `officialaccounts.feed.v1.FeedService/GetMentionsFeed`
 - [ ] `officialaccounts.feed.v1.FeedService/GetRankedMentionsFeed`
 - [ ] `officialaccounts.feed.v1.FeedService/GetActivityFeed`
@@ -162,7 +192,9 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `officialaccounts.feed.v1.FeedService/GetOARecommendationsFeed`
 - [ ] `officialaccounts.feed.v1.FeedService/GetFanFeed`
 - [ ] `officialaccounts.feed.v1.FeedService/GetEngagementMetrics`
+
 - [ ] `officialaccounts.feed.v1.ViewService/GetOAProfileView`
+
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/Follow`
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/Unfollow`
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/EnablePostNotifications`
@@ -173,8 +205,10 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/GetFollowerCount`
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/GetFriendsFollowingOA`
 - [ ] `officialaccounts.relationships.v1.RelationshipsService/GetCommentsByStatus`
+
 - [ ] `officialaccounts.settings.v1.OfficialAccountsSettingsService/GetOfficialAccountSettings`
 - [ ] `officialaccounts.settings.v1.OfficialAccountsSettingsService/UpdateOfficialAccountSettings`
+
 - [ ] `relationship.contactinvites.v1.ContactinvitesService/Create`
 - [ ] `relationship.contactinvites.v1.ContactinvitesService/CreateMany`
 - [ ] `relationship.contactinvites.v1.ContactinvitesService/List`
@@ -184,11 +218,15 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `relationship.contactinvites.v1.ContactinvitesAdminService/List`
 - [ ] `relationship.contactinvites.v1.ContactinvitesAdminService/DeleteByUserId`
 - [ ] `relationship.contactinvites.v1.ContactinvitesAdminService/Update`
+
 - [ ] `relationship.friendrequest.v1.FriendRequestService/CreateFriendRequest`
 - [ ] `relationship.friendrequest.v1.FriendRequestService/GetEdges`
+
 - [ ] `relationship.friends.v1.FriendsService/AreFriends`
 - [ ] `relationship.friends.v1.FriendsService/IsFriendWith`
+
 - [ ] `relationship.frontend.v1.RelationshipService/GetUserRelationships`
+
 - [ ] `relationship.graph.v1.RelationshipService/GetEdge`
 - [ ] `relationship.graph.v1.RelationshipService/GetEdges`
 - [ ] `relationship.graph.v1.RelationshipService/ListEdges`
@@ -202,11 +240,15 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [ ] `relationship.graph.v1.RelationshipService/ListEdgesBatch`
 - [ ] `relationship.graph.v1.RelationshipService/GetFriendIDs`
 - [ ] `relationship.graph.v1.RelationshipService/GetFoFIDs`
+
 - [ ] `relationship.post.v1.PostService/GetLastNMomentsOfUserPosts`
 - [ ] `relationship.post.v1.PostService/GetLatestMomentPostsForUsers`
 - [ ] `relationship.post.v1.PostService/GetPostStates`
+
 - [ ] `relationship.socialproof.v1.SocialProofService/GetForRealette`
+
 - [ ] `relationship.tag.v1.TagService/GetTaggedPostIds`
+
 - [ ] `search.frontend.v1.SearchService/OASearch`
 - [ ] `search.frontend.v1.SearchService/SearchUsers`
 
