@@ -36,7 +36,7 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 - [x] `public.activity.v2.ActivityService/GetActivityFeed`
 - [x] `public.activity.v2.ActivityService/MarkActivitiesAsSeen`
 
-- [ ] `public.discovery.v2.FeedDiscoveryV2Service/GetFeedV2`
+- [x] `public.discovery.v2.FeedDiscoveryV2Service/GetFeedV2`
 
 - [ ] `public.entity.v2.UserService/GetUsers` (unavailable)
 - [x] `public.entity.v2.UserService/GetUserProfile`

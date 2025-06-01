@@ -1,0 +1,45 @@
+syntax = "proto3";
+package public.discovery.v2;
+
+import "public/models/v2/known_entities.proto";
+import "public/models/v2/hydration_size.proto";
+import "public/models/v2/geo_point.proto";
+import "public/models/v2/entities.proto";
+
+message GetFeedV2Request {
+  enum Engine {
+    ENGINE_UNSPECIFIED = 0;
+    ENGINE_DEFAULT = 1;
+    ENGINE_NEARBY = 2;
+  }
+
+  bytes cursor = 1;
+  optional public.models.v2.KnownEntities known_entities = 2;
+  repeated string seen_post_ids = 3;
+  public.models.v2.HydrationSize hydration_size = 4;
+  optional public.models.v2.GeoPoint location = 5;
+  optional Engine engine = 6;
+}
+
+message GetFeedV2Response {
+  message Operation {
+    message Add {
+      message Post {
+        string id = 1;
+      }
+
+      repeated Post posts = 1;
+    }
+
+    Add add = 1;
+  }
+
+  bytes cursor = 1;
+  public.models.v2.Entities entities = 2;
+  repeated Operation operations = 3;
+  repeated string friends_of_friends = 4;
+}
+
+service FeedDiscoveryV2Service {
+  rpc GetFeedV2 (GetFeedV2Request) returns (GetFeedV2Response);
+}
