@@ -40,6 +40,7 @@ A reverse engineering of `.proto` files for calling the gRPC services of a popul
 
 - [ ] `public.entity.v2.UserService/GetUsers` (unavailable)
 - [x] `public.entity.v2.UserService/GetUserProfile`
+- [ ] `public.entity.v2.UserService/SetAstroSign` (unavailable)
 
 - [x] `public.entity.v2.PostService/GetPosts`
 - [ ] `public.entity.v2.PostService/DeletePostRealmoji` (unavailable)
