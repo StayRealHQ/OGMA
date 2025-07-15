@@ -3,7 +3,9 @@ package public.home.v2;
 
 import "public/models/v2/hydratation_window.proto";
 import "public/models/v2/known_entities.proto";
+import "public/models/v2/hydration_size.proto";
 import "public/models/v2/tracking_item.proto";
+import "public/models/v2/extra_feature.proto";
 import "public/models/v2/geo_point.proto";
 import "public/models/v2/entities.proto";
 
@@ -30,9 +32,10 @@ message GetHomeFeedRequest {
   optional public.models.v2.KnownEntities known_entities = 3;
   public.models.v2.HydratationWindow hydratation_window = 4;
   optional GraphsHashes graphs_hashes = 6;
-  int32 hydration_size = 7;
+  public.models.v2.HydrationSize hydration_size = 7;
   bool hydration_full_feed = 8;
   optional ADN adn = 9;
+  repeated public.models.v2.ExtraFeature extra_features = 10;
 }
 
 message GetHomeFeedResponse {
