@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "public/models/v2/cache_control.proto";
 import "public/models/v2/profile_link.proto";
+import "public/models/v2/astro_sign.proto";
 import "public/models/v2/user_type.proto";
 import "public/models/v2/media.proto";
 
@@ -21,7 +22,12 @@ message User {
   repeated public.models.v2.ProfileLink links = 12;
   int64 streak_length = 13;
   string hashed_phone_number = 14;
-  int32 astro_sign = 15; // TODO: find the enumeration for astro_sign
+  public.models.v2.AstroSign astro_sign = 15;
   string occupation = 16;
   string school = 17;
+  int64 graduation_year = 18;
+  repeated string interests = 19; // NOTE: not sure if string or else
+  string location_place_id = 20;
+  string occupation_id = 21;
+  string school_id = 22;
 }
