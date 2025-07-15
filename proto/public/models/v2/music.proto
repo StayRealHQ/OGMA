@@ -1,21 +1,22 @@
 syntax = "proto3";
 package public.models.v2;
 
+// public.models.v2.Music
 message Music {
-  enum Provider { // public.models.v2.Music__Provider
+  enum Provider { // public.models.v2.Music.Provider
     PROVIDER_UNSPECIFIED = 0;
     PROVIDER_SPOTIFY = 1;
     PROVIDER_APPLE = 2;
     PROVIDER_AMAZON = 3;
   }
 
-  enum Visibility { // public.models.v2.Music__Visibility
+  enum Visibility { // public.models.v2.Music.Visibility
     VISIBILITY_UNSPECIFIED = 0;
     VISIBILITY_PUBLIC = 1;
     VISIBILITY_PRIVATE = 2;
   }
 
-  enum AudioType { // public.models.v2.Music__AudioType
+  enum AudioType { // public.models.v2.Music.AudioType
     AUDIO_TYPE_UNSPECIFIED = 0;
     AUDIO_TYPE_PODCAST = 1;
     AUDIO_TYPE_TRACK = 2;

@@ -1,6 +1,7 @@
 syntax = "proto3";
 package media.upload.v1;
 
+// media.upload.v1.AWSUploadUrl
 message AWSUploadUrl {
   string id = 1;
 }

@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "public/models/v2/cache_control.proto";
 import "public/models/v2/media.proto";
 
+// public.models.v2.Realmoji
 message Realmoji {
   string id = 1;
   string user_id = 2;

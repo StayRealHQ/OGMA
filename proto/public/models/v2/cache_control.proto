@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "google/protobuf/duration.proto";
 
+// public.models.v2.CacheControl
 message CacheControl {
   google.protobuf.Duration max_age = 1;
   google.protobuf.Duration delete_after = 2;

@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "public/models/v2/media_type.proto";
 
+// public.models.v2.Media
 message Media {
   string url = 1;
   int32 width = 2;

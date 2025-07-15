@@ -7,6 +7,7 @@ import "public/models/v2/astro_sign.proto";
 import "public/models/v2/user_type.proto";
 import "public/models/v2/media.proto";
 
+// public.models.v2.User
 message User {
   string id = 1;
   public.models.v2.UserType type = 2;
@@ -26,7 +27,7 @@ message User {
   string occupation = 16;
   string school = 17;
   int64 graduation_year = 18;
-  repeated string interests = 19; // NOTE: not sure if string or else
+  repeated string interests = 19;
   string location_place_id = 20;
   string occupation_id = 21;
   string school_id = 22;

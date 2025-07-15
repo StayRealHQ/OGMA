@@ -4,6 +4,7 @@ package media.upload.v1;
 import "media/upload/v1/google_upload_url.proto";
 import "media/upload/v1/aws_upload_url.proto";
 
+// media.upload.v1.CameraRollThumbnailUploadUrl
 message CameraRollThumbnailUploadUrl {
   oneof url {
     media.upload.v1.GoogleUploadUrl google_url = 1;

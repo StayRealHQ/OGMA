@@ -6,10 +6,14 @@ import "public/models/v2/known_entities.proto";
 import "public/models/v2/hydration_size.proto";
 import "public/models/v2/tracking_item.proto";
 import "public/models/v2/extra_feature.proto";
+import "public/models/v2/relationship.proto";
 import "public/models/v2/geo_point.proto";
 import "public/models/v2/entities.proto";
+import "public/models/v2/error.proto";
 
+// public.home.v2.GetHomeFeedRequest
 message GetHomeFeedRequest {
+  // public.home.v2.GetHomeFeedRequest.ADN
   message ADN {
     bool insert = 1;
     bool invalidate_cache = 2;
@@ -21,6 +25,7 @@ message GetHomeFeedRequest {
     optional bool test = 8;
   }
 
+  // public.home.v2.GetHomeFeedRequest.GraphsHashes
   message GraphsHashes {
     string friends = 1;
     string follow = 2;
@@ -38,15 +43,20 @@ message GetHomeFeedRequest {
   repeated public.models.v2.ExtraFeature extra_features = 10;
 }
 
+// public.home.v2.GetHomeFeedResponse
 message GetHomeFeedResponse {
+  // public.home.v2.GetHomeFeedResponse.Operation
   message Operation {
+    // public.home.v2.GetHomeFeedResponse.Operation.Post
     message Post {
       string id = 1;
       bool is_seen = 2;
       bool is_sponsored = 3;
     }
 
+    // public.home.v2.GetHomeFeedResponse.Operation.Add
     message Add {
+      // public.home.v2.GetHomeFeedResponse.Operation.Add.Ad
       message Ad {
         string id = 1;
       }
@@ -55,14 +65,17 @@ message GetHomeFeedResponse {
       Ad ad = 2;
     }
 
+    // public.home.v2.GetHomeFeedResponse.Operation.Delete
     message Delete {
       repeated Post posts = 1;
     }
 
+    // public.home.v2.GetHomeFeedResponse.Operation.Clear
     message Clear {
 
     }
 
+    // public.home.v2.GetHomeFeedResponse.Operation.Terminate
     message Terminate {
       google.protobuf.Duration timeout = 1;
     }
@@ -74,10 +87,10 @@ message GetHomeFeedResponse {
   }
 
   bytes cursor = 1;
-  Entities entities = 2;
-  repeated Relationship relationships = 3;
+  public.models.v2.Entities entities = 2;
+  repeated public.models.v2.Relationship relationships = 3;
   repeated Operation operations = 4;
-  repeated Error errors = 5;
+  repeated public.models.v2.Error errors = 5;
   repeated public.models.v2.GraphType complete_graphs = 6;
   int32 author_count = 7;
   map<string, public.models.v2.TrackingItem> tracking_plan = 8;
@@ -101,6 +114,7 @@ message MarkPostsAsSeenResponse {
 
 }
 
+// public.home.v2.FeedService
 service FeedService {
   rpc GetHomeFeed (GetHomeFeedRequest) returns (GetHomeFeedResponse);
   rpc GetWhatYouMissed (GetWhatYouMissedRequest) returns (GetWhatYouMissedResponse);

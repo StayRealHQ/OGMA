@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "public/models/v2/tracking_type.proto";
 
+// public.models.v2.TrackingItem
 message TrackingItem {
   public.models.v2.TrackingType type = 1;
   string adm = 2;

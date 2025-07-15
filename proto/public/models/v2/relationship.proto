@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "public/models/v2/graph_type.proto";
 import "public/models/v2/cache_control.proto";
 
+// public.models.v2.Relationship
 message Relationship {
   public.models.v2.GraphType graph_type = 1;
   string source_id = 2;

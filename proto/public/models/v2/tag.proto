@@ -3,8 +3,9 @@ package public.models.v2;
 
 import "public/models/v2/cache_control.proto";
 
+// public.models.v2.Tag
 message Tag {
-  enum Type { // public.models.v2.Tag__Type
+  enum Type { // public.models.v2.Tag.Type
     TYPE_UNSPECIFIED = 0;
     TYPE_MENTION = 1;
     TYPE_TAG = 2;

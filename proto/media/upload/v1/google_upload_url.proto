@@ -3,6 +3,7 @@ package media.upload.v1;
 
 import "google/protobuf/timestamp.proto";
 
+// media.upload.v1.GoogleUploadUrl
 message GoogleUploadUrl {
   string id = 1;
   string upload_url = 2;

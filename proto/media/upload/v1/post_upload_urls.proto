@@ -5,7 +5,9 @@ import "google/protobuf/timestamp.proto";
 import "media/upload/v1/google_upload_url.proto";
 import "media/upload/v1/aws_upload_url.proto";
 
+// media.upload.v1.PostUploadUrls
 message PostUploadUrls {
+  // media.upload.v1.PostUploadUrls.Provider
   enum Provider {
     PROVIDER_UNSPECIFIED = 0;
     PROVIDER_GOOGLE = 1;

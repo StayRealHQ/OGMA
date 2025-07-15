@@ -6,7 +6,9 @@ import "media/upload/v1/camera_roll_upload_url.proto";
 import "media/upload/v1/instant_realmoji_url.proto";
 import "media/upload/v1/post_upload_urls.proto";
 
+// media.upload.v1.MediaUploadService.CreateUploadUrlsRequest
 message CreateUploadUrlsRequest {
+  // media.upload.v1.MediaUploadService.CreateUploadUrlsRequest.Type
   enum Type {
     TYPE_UNSPECIFIED = 0;
     TYPE_CHAT_POST = 1;
@@ -19,6 +21,7 @@ message CreateUploadUrlsRequest {
   string mime_type = 2;
 }
 
+// media.upload.v1.MediaUploadService.CreateUploadUrlsResponse
 message CreateUploadUrlsResponse {
   repeated media.upload.v1.PostUploadUrls post = 1;
   repeated media.upload.v1.InstantRealmojiUrl instant_realmoji = 2;
@@ -26,6 +29,7 @@ message CreateUploadUrlsResponse {
   repeated media.upload.v1.CameraRollThumbnailUploadUrl camera_roll_thumbnails = 4;
 }
 
+// media.upload.v1.MediaUploadService
 service MediaUploadService {
   rpc CreateUploadUrls (CreateUploadUrlsRequest) returns (CreateUploadUrlsResponse);
 }

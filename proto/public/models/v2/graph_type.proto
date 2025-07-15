@@ -1,6 +1,7 @@
 syntax = "proto3";
 package public.models.v2;
 
+// public.models.v2.GraphType
 enum GraphType {
   GRAPH_TYPE_UNSPECIFIED = 0;
   GRAPH_TYPE_FOLLOW = 1;

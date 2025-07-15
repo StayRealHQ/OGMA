@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "google/protobuf/timestamp.proto";
 
+// public.models.v2.Screenshot
 message Screenshot {
   string id = 1;
   string user_id = 2;

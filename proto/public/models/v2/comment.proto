@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "public/models/v2/cache_control.proto";
 import "public/models/v2/tag.proto";
 
+// public.models.v2.Comment
 message Comment {
   string id = 1;
   string user_id = 2;
@@ -13,4 +14,5 @@ message Comment {
   google.protobuf.Timestamp posted_at = 5;
   public.models.v2.CacheControl cache_control = 6;
   string parent_id = 7;
+  map<string, int32> reaction_counters = 8;
 }

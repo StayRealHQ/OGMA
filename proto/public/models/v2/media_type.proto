@@ -1,6 +1,7 @@
 syntax = "proto3";
 package public.models.v2;
 
+// public.models.v2.MediaType
 enum MediaType {
   MEDIA_TYPE_UNSPECIFIED = 0;
   MEDIA_TYPE_IMAGE = 1;
