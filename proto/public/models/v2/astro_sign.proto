@@ -1,0 +1,19 @@
+syntax = "proto3";
+package public.models.v2;
+
+// public.models.v2.AstroSign
+enum AstroSign {
+  ASTRO_SIGN_UNSPECIFIED = 0;
+  ASTRO_SIGN_ARIES = 1;
+  ASTRO_SIGN_TAURUS = 2;
+  ASTRO_SIGN_GEMINI = 3;
+  ASTRO_SIGN_CANCER = 4;
+  ASTRO_SIGN_LEO = 5;
+  ASTRO_SIGN_VIRGO = 6;
+  ASTRO_SIGN_LIBRA = 7;
+  ASTRO_SIGN_SCORPIO = 8;
+  ASTRO_SIGN_SAGITTARIUS = 9;
+  ASTRO_SIGN_CAPRICORN = 10;
+  ASTRO_SIGN_AQUARIUS = 11;
+  ASTRO_SIGN_PISCES = 12;
+}
