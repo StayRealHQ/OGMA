@@ -1,3 +1,5 @@
 node_modules/
 *.desc
 bins/
+*.apk
+apk/
