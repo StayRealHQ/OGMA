@@ -3,6 +3,7 @@ package public.models.v2;
 
 import "public/models/v2/post.proto";
 
+// public.models.v2.PostWithSeen
 message PostWithSeen {
   public.models.v2.Post post = 1;
   bool seen = 2;

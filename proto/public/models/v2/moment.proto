@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "public/models/v2/cache_control.proto";
 import "public/models/v2/region.proto";
 
+// public.models.v2.Moment
 message Moment {
   string id = 1;
   public.models.v2.Region region = 2;
