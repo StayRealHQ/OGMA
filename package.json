@@ -3,6 +3,7 @@
 		"@types/bun": "^1.2.11"
 	},
 	"dependencies": {
-		"change-case": "^5.4.4"
+		"change-case": "^5.4.4",
+		"java-ast": "^0.4.1"
 	}
 }

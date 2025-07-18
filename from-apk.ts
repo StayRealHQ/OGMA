@@ -5,6 +5,16 @@
 import { join, parse, sep } from "node:path";
 import { glob, readFile } from "node:fs/promises";
 import { camelCase, pascalCase, snakeCase } from "change-case";
+import {
+  DecodedFieldInfo,
+  decodeSchema,
+  FieldInfo,
+  RawMessageInfo,
+} from "./protoreader";
+import {
+  parse as parseJava,
+  createVisitor as createJavaVisitor,
+} from "java-ast";
 
 const entry = join(__dirname, "apk", "sources");
 console.log("# finding all classes, ignore known useless ones.");
@@ -484,7 +494,7 @@ for (const service of services) {
 }
 
 const MESSAGE_INFO_REGEX =
-  /return\s+.*?\.newMessageInfo\(.*new Object\[\]\s*\{([^}]*)\}[^)]*\)/;
+  /return\s+.*?\.newMessageInfo\(.*,\s+(.*),\s+.*new Object\[\]\s*\{([^}]*)\}[^)]*\)/;
 
 const MESSAGE_FIELD_REFEX =
   /public\s+static\s+final\s+int\s+(\w+)_FIELD_NUMBER\s*=\s*(\d+);/g;
@@ -539,34 +549,312 @@ const extractMapTypeFromParser = async (
   return `map<${readType(method.keyType)}, ${readType(method.valueType)}>`;
 };
 
-const parseMesage = async (path: string, name: string) => {
-  let output = messages.get(name);
-  if (output) return output;
+const toClassName = (v: string) => v.replace(/.class$/, "");
+const toFieldName = (v: string) => {
+  return snakeCase(v.substring(0, v.length - 1));
+};
 
-  console.log("READING", path, name, "-------------");
+// const parseMesage = async (path: string, name: string) => {
+//   let output = messages.get(name);
+//   if (output) return output;
+
+//   console.log("READING", path, name, "-------------");
+
+//   const content = await readFile(join(entry, path), "utf8");
+//   const lines = content.split("\n").map((line) => line.trim());
+
+//   const packageName = getPackageName(content);
+
+//   const isEmptyMessage = content.includes(
+//     '.newMessageInfo(DEFAULT_INSTANCE, "\\u0000\\u0000", null);'
+//   );
+//   if (isEmptyMessage) {
+//     messages.set(
+//       name,
+//       `
+// message ${name} {
+// }
+//     `.trim()
+//     );
+
+//     console.log("empty");
+//     return;
+//   }
+
+//   const imports = getImports(content);
+
+//   const variables = Array.from(content.matchAll(VARIABLE_FIELD_REGEX)!)
+//     .map(([, type, name, value]) => ({
+//       type,
+//       name,
+//       value,
+//     }))
+//     .filter((variable) => variable.name !== "bitField0_");
+
+//   const info = content
+//     .match(MESSAGE_INFO_REGEX)![1]
+//     .split(", ")
+//     .map((val) => {
+//       try {
+//         return JSON.parse(val) as string;
+//       } catch {
+//         return val;
+//       }
+//     })
+//     .filter((field) => field !== "bitField0_");
+
+//   const fields = Array.from(content.matchAll(MESSAGE_FIELD_REFEX)!)
+//     .map(([, name, order]) => ({
+//       name: snakeCase(name),
+//       order: parseInt(order),
+//     }))
+//     .sort((a, b) => a.order - b.order);
+
+//   output = `message ${name} {\n`;
+
+//   let curr = 0;
+//   let currOrder = 1;
+//   let isCurrentlyInOneOf = false;
+
+//   while (curr < info.length) {
+//     let value = info[curr];
+//     let originalValue = value;
+//     console.log(content, curr, info, value);
+
+//     let isFieldName = value.endsWith("_");
+//     const isClassName = value.endsWith(".class");
+
+//     if (isFieldName) {
+//       // remove the extra _ at the end
+//       value = snakeCase(value.substring(0, value.length - 1));
+//     }
+
+//     if (isClassName) {
+//       // remove the extra .class at the end
+//       value = value.replace(/.class$/, "");
+//     }
+
+//     if (!isFieldName && !isClassName) {
+//       isFieldName = true;
+//       const field = fields.find((field) => field.order === currOrder)!;
+
+//       value = field.name;
+//       originalValue = camelCase(field.name) + "_";
+//     }
+
+//     let isOneOf = curr + 1 < info.length && info[curr + 1].endsWith("Case_");
+//     if (isOneOf) {
+//       output += `${TAB}oneof ${value} {\n`;
+//       isCurrentlyInOneOf = true;
+
+//       curr += 2; // skip the case field
+//       continue;
+//     }
+
+//     if (isClassName) {
+//       if (name !== value)
+//         await parseMesage(findClassPath(value, imports, packageName), value);
+
+//       if (isCurrentlyInOneOf) {
+//         const field = fields.find((field) => field.order === currOrder)!;
+//         output += `${TAB + TAB}${value} ${field.name} = ${field.order};\n`;
+//         currOrder++;
+//         curr++;
+//       }
+//     } else {
+//       if (isCurrentlyInOneOf) {
+//         output += `${TAB}}\n\n`;
+//         isCurrentlyInOneOf = false;
+//       }
+
+//       let { type, value: variableValue } = variables.find(
+//         ({ name }) => name === originalValue
+//       )!;
+
+//       if (variableValue) {
+//         // repeated protobuf
+//         if (variableValue.endsWith(".emptyProtobufList()")) {
+//           let next = info[curr + 1];
+
+//           // if next exists and is a class name
+//           if (next && next.endsWith(".class")) {
+//             let classNameForArray = info[curr + 1].replace(/.class$/, "");
+
+//             if (classNameForArray !== name)
+//               await parseMesage(
+//                 findClassPath(classNameForArray, imports, packageName),
+//                 classNameForArray
+//               );
+
+//             output += `${TAB}repeated ${classNameForArray} ${value} = ${currOrder};\n`;
+
+//             currOrder++;
+//             curr += 2; // skip the class name field in info
+//           }
+//           // a repeated string
+//           // NOTE: not sure if it's always a string?
+//           else {
+//             output += `${TAB}repeated string ${value} = ${currOrder};\n`;
+
+//             currOrder++;
+//             curr++;
+//           }
+
+//           continue;
+//         }
+
+//         // map!
+//         if (variableValue.endsWith(".emptyMapField()")) {
+//           const parser = info[curr + 1];
+//           const type = await extractMapTypeFromParser(
+//             parser,
+//             imports,
+//             packageName
+//           );
+
+//           output += `${TAB}${type} ${value} = ${currOrder};\n`;
+
+//           currOrder++;
+//           curr += 2; // skip the parser in info
+
+//           continue;
+//         }
+
+//         // repeated int32
+//         if (variableValue.endsWith(".emptyIntList()")) {
+//           output += `${TAB}repeated int32 ${value} = ${currOrder};\n`;
+
+//           currOrder++;
+//           curr++;
+
+//           continue;
+//         }
+
+//         // ByteString.EMPTY
+//         if (variableValue.endsWith(".EMPTY")) {
+//           output += `${TAB}bytes ${value} = ${currOrder};\n`;
+
+//           currOrder++;
+//           curr++;
+
+//           continue;
+//         }
+//       }
+
+//       switch (type) {
+//         case "String":
+//           type = "string";
+//           break;
+//         case "int":
+//           type = "int32";
+//           break;
+//         case "long":
+//           type = "int64";
+//           break;
+//         case "float":
+//           type = "float";
+//           break;
+//         case "boolean":
+//           type = "bool";
+//           break;
+//         default:
+//           console.log("unknown type:", type, originalValue);
+//           if (type !== name)
+//             await parseMesage(findClassPath(type, imports, packageName), type);
+//       }
+
+//       output += `${TAB}${type} ${value} = ${currOrder};\n`;
+
+//       currOrder++;
+//       curr++;
+//     }
+//   }
+
+//   // When the last instruction is the oneof, this case can happen...
+//   if (isCurrentlyInOneOf) {
+//     output += `${TAB}}\n`;
+//   }
+
+//   output += `}\n`;
+//   console.log(output);
+//   messages.set(name, output);
+// };
+
+const parseEnum = async (path: string, className: string): Promise<void> => {
+  if (messages.has(className)) return;
+
+  console.log("> PARSING ENUM", path, "->", className);
+  const content = await readFile(join(entry, path), "utf8");
+  const enumValues: Record<string, number> = {};
+
+  const java = parseJava(content);
+  createJavaVisitor({
+    visitEnumConstant(ctx) {
+      // DATA_TYPE_UNSPECIFIED(0)
+      let [name, _value] = ctx.text.split("(");
+      if (name === "UNRECOGNIZED") return; // skip additional property added by protoc.
+
+      _value = _value.substring(0, _value.length - 1); // remove extra )
+      const value = Number(_value);
+
+      enumValues[name] = value;
+    },
+  }).visit(java);
+
+  const message =
+    `
+syntax = "proto3";
+
+message ${className} {
+${Object.entries(enumValues)
+  .map(([key, value]) => `${TAB}${key} = ${value};`)
+  .join("\n")}
+}
+  `.trim() + "\n";
+
+  console.log(message);
+  messages.set(className, message);
+};
+
+const parseMessage = async (path: string, className: string): Promise<void> => {
+  if (messages.has(className)) return;
 
   const content = await readFile(join(entry, path), "utf8");
-  const lines = content.split("\n").map((line) => line.trim());
-
   const packageName = getPackageName(content);
 
-  const isEmptyMessage = content.includes(
-    '.newMessageInfo(DEFAULT_INSTANCE, "\\u0000\\u0000", null);'
-  );
-  if (isEmptyMessage) {
-    messages.set(
-      name,
-      `
-message ${name} {
-}
-    `.trim()
-    );
+  const outputs = {
+    root: {},
+    oneofs: {},
+  } satisfies Outputs;
 
-    console.log("empty");
+  const isEmptyMessage = content.includes(
+    'newMessageInfo(DEFAULT_INSTANCE, "\\u0000\\u0000", null);'
+  );
+
+  if (isEmptyMessage) {
+    messages.set(className, rawOutputsToMessage(outputs, className));
     return;
   }
 
+  console.log("> PARSING MESSAGE", path, "->", className);
   const imports = getImports(content);
+
+  const assertMessageReference = async (
+    refClassName: string
+  ): Promise<void> => {
+    if (refClassName === className) return;
+    return parseMessage(
+      findClassPath(refClassName, imports, packageName),
+      refClassName
+    );
+  };
+
+  const assertEnumReference = async (enumClassName: string): Promise<void> => {
+    return parseEnum(
+      findClassPath(enumClassName, imports, packageName),
+      enumClassName
+    );
+  };
 
   const variables = Array.from(content.matchAll(VARIABLE_FIELD_REGEX)!)
     .map(([, type, name, value]) => ({
@@ -576,18 +864,17 @@ message ${name} {
     }))
     .filter((variable) => variable.name !== "bitField0_");
 
-  const info = content
-    .match(MESSAGE_INFO_REGEX)![1]
-    .split(", ")
-    .map((val) => {
-      try {
-        return JSON.parse(val) as string;
-      } catch {
-        return val;
-      }
-    })
-    .filter((field) => field !== "bitField0_");
+  const [, _info, _objects] = content.match(MESSAGE_INFO_REGEX)!;
+  const info = JSON.parse(_info);
+  const objects = _objects.split(", ").map((val) => {
+    try {
+      return JSON.parse(val) as string;
+    } catch {
+      return val;
+    }
+  });
 
+  // `public static final init <FIELD_NAME>_FIELD_NUMBER = <ORDER>`
   const fields = Array.from(content.matchAll(MESSAGE_FIELD_REFEX)!)
     .map(([, name, order]) => ({
       name: snakeCase(name),
@@ -595,176 +882,286 @@ message ${name} {
     }))
     .sort((a, b) => a.order - b.order);
 
-  output = `message ${name} {\n`;
+  const message = new RawMessageInfo(info, objects);
+  const schema = decodeSchema(message, info, objects);
 
-  let curr = 0;
-  let currOrder = 1;
-  let isCurrentlyInOneOf = false;
+  // console.log({ fields, variables });
 
-  while (curr < info.length) {
-    let value = info[curr];
-    let originalValue = value;
-    console.log(content, curr, info, value);
+  for (const field of schema) {
+    // a message list or a map
+    if (field.associatedObject) {
+      if (field.fieldTypeName === "MESSAGE_LIST") {
+        const fieldName = toFieldName(field.fieldName!);
+        const objectClassName = toClassName(field.associatedObject);
+        // await assertReference(objectClassName);
 
-    let isFieldName = value.endsWith("_");
-    const isClassName = value.endsWith(".class");
+        outputs.root[fieldName] = {
+          no: field.fieldNumber,
+          type: objectClassName,
+          repeated: true,
+        };
+      } else if (field.fieldTypeName === "MAP") {
+      } else {
+        console.log(
+          ">> ERROR",
+          field.fieldTypeName,
+          field.fieldName,
+          field.fieldNumber,
+          field.associatedObject
+        );
 
-    if (isFieldName) {
-      // remove the extra _ at the end
-      value = snakeCase(value.substring(0, value.length - 1));
-    }
-
-    if (isClassName) {
-      // remove the extra .class at the end
-      value = value.replace(/.class$/, "");
-    }
-
-    if (!isFieldName && !isClassName) {
-      isFieldName = true;
-      const field = fields.find((field) => field.order === currOrder)!;
-
-      value = field.name;
-      originalValue = camelCase(field.name) + "_";
-    }
-
-    let isOneOf = curr + 1 < info.length && info[curr + 1].endsWith("Case_");
-    if (isOneOf) {
-      output += `${TAB}oneof ${value} {\n`;
-      isCurrentlyInOneOf = true;
-
-      curr += 2; // skip the case field
-      continue;
-    }
-
-    if (isClassName) {
-      if (name !== value)
-        await parseMesage(findClassPath(value, imports, packageName), value);
-
-      if (isCurrentlyInOneOf) {
-        const field = fields.find((field) => field.order === currOrder)!;
-        output += `${TAB + TAB}${value} ${field.name} = ${field.order};\n`;
-        currOrder++;
-        curr++;
+        throw new Error(
+          "field with associated object that is not a map or a message list"
+        );
       }
-    } else {
-      if (isCurrentlyInOneOf) {
-        output += `${TAB}}\n\n`;
-        isCurrentlyInOneOf = false;
+    }
+    // oneof
+    else if (field.oneofInfo) {
+      const javaField = fields.find((f) => f.order === field.fieldNumber)!;
+      const fieldName = toFieldName(field.oneofInfo.oneofFieldName);
+
+      const output = {
+        no: javaField.order,
+        type: field.fieldTypeName,
+      };
+
+      if (field.oneofInfo.associatedObject) {
+        const objectClassName = toClassName(field.oneofInfo.associatedObject);
+        await assertMessageReference(objectClassName);
+        output.type = objectClassName;
       }
 
-      let { type, value: variableValue } = variables.find(
-        ({ name }) => name === originalValue
-      )!;
-
-      if (variableValue) {
-        // repeated protobuf
-        if (variableValue.endsWith(".emptyProtobufList()")) {
-          let next = info[curr + 1];
-
-          // if next exists and is a class name
-          if (next && next.endsWith(".class")) {
-            let classNameForArray = info[curr + 1].replace(/.class$/, "");
-
-            if (classNameForArray !== name)
-              await parseMesage(
-                findClassPath(classNameForArray, imports, packageName),
-                classNameForArray
-              );
-
-            output += `${TAB}repeated ${classNameForArray} ${value} = ${currOrder};\n`;
-
-            currOrder++;
-            curr += 2; // skip the class name field in info
-          }
-          // a repeated string
-          // NOTE: not sure if it's always a string?
-          else {
-            output += `${TAB}repeated string ${value} = ${currOrder};\n`;
-
-            currOrder++;
-            curr++;
-          }
-
-          continue;
-        }
-
-        // map!
-        if (variableValue.endsWith(".emptyMapField()")) {
-          const parser = info[curr + 1];
-          const type = await extractMapTypeFromParser(
-            parser,
-            imports,
-            packageName
-          );
-
-          output += `${TAB}${type} ${value} = ${currOrder};\n`;
-
-          currOrder++;
-          curr += 2; // skip the parser in info
-
-          continue;
-        }
-
-        // repeated int32
-        if (variableValue.endsWith(".emptyIntList()")) {
-          output += `${TAB}repeated int32 ${value} = ${currOrder};\n`;
-
-          currOrder++;
-          curr++;
-
-          continue;
-        }
-
-        // ByteString.EMPTY
-        if (variableValue.endsWith(".EMPTY")) {
-          output += `${TAB}bytes ${value} = ${currOrder};\n`;
-
-          currOrder++;
-          curr++;
-
-          continue;
-        }
+      if (fieldName in outputs.oneofs) {
+        outputs.oneofs[fieldName][javaField.name] = output;
+      } else {
+        outputs.oneofs[fieldName] = {
+          [javaField.name]: output,
+        };
       }
+    }
+    // a normal field containing a primitive value or a message.
+    else {
+      const javaField = fields.find((f) => f.order === field.fieldNumber)!;
+      let type = field.fieldTypeName;
+      let repeated = false;
 
-      switch (type) {
-        case "String":
-          type = "string";
-          break;
-        case "int":
+      if (type === "MESSAGE") {
+        let { type: javaType } = variables.find(
+          (v) => v.name === field.fieldName
+        )!;
+
+        await assertMessageReference(javaType);
+        type = javaType;
+      } else if (type === "STRING_LIST") {
+        type = "string";
+        repeated = true;
+      } else if (field.fieldTypeName === "ENUM") {
+        const foundEnumClass = searchThroughJavaClassForEnum(content, field);
+
+        // since enums are backed by int32, if we can't find the original
+        // enum, we'll use int32 instead!
+        if (!foundEnumClass) {
           type = "int32";
-          break;
-        case "long":
-          type = "int64";
-          break;
-        case "float":
-          type = "float";
-          break;
-        case "boolean":
-          type = "bool";
-          break;
-        default:
-          console.log("unknown type:", type, originalValue);
-          if (type !== name)
-            await parseMesage(findClassPath(type, imports, packageName), type);
+          global.aa ??= 0;
+          global.aa++;
+          if (global.aa >= 2) {
+            // console.log(content, field.fieldName);
+            throw null;
+          }
+        } else {
+          await assertEnumReference(foundEnumClass);
+          type = foundEnumClass;
+        }
+      } else {
+        type = type.toLowerCase();
       }
 
-      output += `${TAB}${type} ${value} = ${currOrder};\n`;
-
-      currOrder++;
-      curr++;
+      outputs.root[javaField.name] = {
+        no: javaField.order,
+        type,
+        repeated,
+      };
     }
   }
 
-  // When the last instruction is the oneof, this case can happen...
-  if (isCurrentlyInOneOf) {
-    output += `${TAB}}\n`;
+  // console.log(JSON.stringify(outputs, null, 2));
+  messages.set(className, rawOutputsToMessage(outputs, className));
+};
+const searchThroughJavaClassForEnum = (
+  content: string,
+  field: DecodedFieldInfo
+): string | undefined => {
+  let foundClass: string | undefined;
+
+  const java = parseJava(content);
+  createJavaVisitor({
+    /// Since compiled proto might be optimized by proguard to automatically
+    /// remove not used functions, we try to find the enum reference by all possible way.
+    visitMethodDeclaration(ctx) {
+      const statements = ctx.methodBody().block()?.blockStatement()!;
+
+      {
+        // last parameter and last statement, set enum value builder method
+
+        // public static void m50874m(C25137y0 c25137y0, EnumC25121u0 enumC25121u0) {
+        //                                                            ^^^^^^^^^^^^ should match with the variable name below.
+        const lastParameter = ctx
+          .formalParameters()
+          .formalParameterList()
+          ?.formalParameter()
+          .at(-1);
+
+        const lastParameterId = lastParameter?.variableDeclaratorId().text;
+        const lastParameterType = lastParameter?.typeType().text;
+
+        // c25137y0.rank_ = enumC25121u0.getNumber();
+        //          ^^^^^ field.fieldName !
+        const lastStmt = statements[statements.length - 1]?.statement();
+
+        if (lastParameterId && lastParameterType && lastStmt) {
+          const declarationId = lastStmt
+            .expression()[0]
+            ?.getChild(0)
+            .text.split(".")[1];
+
+          // we have found our field! let's try to find the enum now...
+          if (declarationId === field.fieldName!) {
+            // additional check, just in case:
+            // the equality should reference the default value declaration id.
+
+            const [reference] = lastStmt
+              .expression()[0]
+              ?.getChild(2)
+              .text.split(".");
+
+            if (reference === lastParameterId) {
+              console.log("found an enum type!", lastParameterType);
+              foundClass = lastParameterType;
+            }
+          }
+        }
+
+        if (foundClass) return;
+      }
+
+      {
+        // first and last statement, default enum value builder method
+
+        // EnumC23821O enumC23821O = EnumC23821O.HYDRATION_SIZE_SMALL;
+        //             ^^^^^^^^^^^ should match with the variable name below.
+        const firstStmt = statements[0]?.localVariableDeclaration();
+
+        // c26446j.hydrationSize_ = enumC23821O.getNumber();
+        //         ^^^^^^^^^^^^^^ field.fieldName !
+        const lastStmt = statements[statements.length - 1]?.statement();
+
+        if (firstStmt && lastStmt) {
+          const declarationId = lastStmt
+            .expression()[0]
+            ?.getChild(0)
+            .text.split(".")[1];
+
+          // we have found our field! let's try to find the enum now...
+          if (declarationId === field.fieldName!) {
+            const enumClassName = firstStmt.typeType()?.text;
+            const defaultValueDeclarationId = firstStmt
+              .variableDeclarators()
+              ?.variableDeclarator()[0]
+              ?.variableDeclaratorId().text;
+
+            // additional check, just in case:
+            // the equality should reference the default value declaration id.
+
+            const [reference] = lastStmt
+              .expression()[0]
+              ?.getChild(2)
+              .text.split(".");
+
+            if (reference === defaultValueDeclarationId) {
+              console.log("found an enum type!", enumClassName);
+              foundClass = enumClassName;
+            }
+          }
+        }
+
+        if (foundClass) return;
+      }
+
+      {
+        // `switch` method
+
+        // EnumC26920d enumC26920d;
+        // ^ statements[0]
+
+        // switch (this.type_) {}
+        //              ^^^^^ field.fieldName !
+        let switchStmt = statements[1]?.statement();
+        if (switchStmt) {
+          if (switchStmt.getChild(1).text === `(this.${field.fieldName!})`) {
+            // public final EnumC26920d m56420l() {}
+            let currentClassName = ctx.typeTypeOrVoid().text;
+
+            console.log("found an enum type!", currentClassName);
+            foundClass = currentClassName;
+          }
+        }
+
+        if (foundClass) return;
+      }
+    },
+  }).visit(java);
+
+  return foundClass;
+};
+
+interface Field {
+  no: number;
+  type: string;
+  repeated?: boolean;
+}
+
+interface Outputs {
+  root: Record<string, Field>;
+  oneofs: Record<string, Record<string, Field>>;
+}
+
+const rawOutputsToMessage = (outputs: Outputs, className: string): string => {
+  let message = `syntax = "proto3";\n\n`;
+
+  // start of the message ------------------------------------------------------
+  message += `message ${className} {\n`; // open
+
+  const handleFields = (fields: Record<string, Field>, tab = TAB): void => {
+    const writeln = (v: string) => {
+      message += tab + v + "\n";
+    };
+
+    for (const [fieldName, field] of Object.entries(fields)) {
+      writeln(
+        `${field.repeated ? "repeated " : ""}${field.type} ${fieldName} = ${
+          field.no
+        };`
+      );
+    }
+  };
+
+  // oneof fields
+  for (const [name, fields] of Object.entries(outputs.oneofs)) {
+    message += TAB + `oneof ${name} {\n`;
+    handleFields(fields, TAB + TAB);
+    message += TAB + `}\n\n`;
   }
 
-  output += `}\n`;
-  console.log(output);
-  messages.set(name, output);
+  // root fields
+  handleFields(outputs.root);
+
+  message += `}\n`; // close
+  // end of the message --------------------------------------------------------
+
+  console.log(message);
+  return message;
 };
 
 for (const entrypoint of entrypoints) {
-  await parseMesage(entrypoint.path, entrypoint.name);
+  await parseMessage(entrypoint.path, entrypoint.name);
 }
